@@ -1,0 +1,6 @@
+.env
+env.php
+
+*.ini
+*.log
+*.cache
