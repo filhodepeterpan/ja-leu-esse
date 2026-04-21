@@ -9,7 +9,7 @@ html{
 }
 
 body{
-    height: 100vh;
+    min-height: 100vh;   /* era height:100vh — isso fazia o main esticar e cobrir o header */
     margin: 0;
     padding: 0;
     font-family: var(--fonte-padrao);

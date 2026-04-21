@@ -16,7 +16,16 @@
   z-index: 9998;
 }
 #chat-fab:hover { transform: scale(1.08); box-shadow: 0 12px 32px rgba(200,136,42,.55); }
-#chat-fab svg   { width: 24px; height: 24px; fill: #fff; pointer-events: none; }
+
+/* padding:0 neutraliza o que Bootstrap injeta em button */
+#chat-fab { padding: 0; line-height: 1; }
+#chat-fab svg {
+  width: 24px; height: 24px;
+  fill: #fff !important;   /* Bootstrap reseta fill via currentColor em alguns temas */
+  stroke: none;
+  pointer-events: none;
+  display: block;          /* evita espaço fantasma de inline */
+}
 
 #chat-badge {
   position: absolute;
@@ -112,13 +121,26 @@
   border-radius: 8px;
   border: none;
   background: transparent;
+  background-color: transparent; /* Bootstrap sobrescreve background com background-color */
   color: var(--c-muted);
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: background .15s, color .15s;
+  padding: 0;
+  line-height: 1;
+  box-shadow: none;
 }
-.btn-icon:hover { background: var(--c-surface3); color: var(--c-text); }
-.btn-icon svg   { width: 18px; height: 18px; }
+.btn-icon:hover,
+.btn-icon:focus,
+.btn-icon:active {
+  background: var(--c-surface3);
+  background-color: var(--c-surface3);
+  color: var(--c-text);
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+.btn-icon svg { width: 18px; height: 18px; display: block; }
 
 /* ═══════════════════════════════════════════════
    BUSCA
@@ -143,8 +165,14 @@
   background-repeat: no-repeat;
   background-position: 10px center;
 }
-.search-input::placeholder { color: var(--c-muted); }
-.search-input:focus { border-color: var(--c-accent); }
+.search-input::placeholder { color: var(--c-muted); opacity: 1; }
+.search-input:focus {
+  border-color: var(--c-accent);
+  background-color: var(--c-surface3); /* Bootstrap troca no :focus */
+  box-shadow: none;                    /* Bootstrap injeta box-shadow azul no :focus */
+  color: var(--c-text);
+  outline: none;
+}
 
 /* ═══════════════════════════════════════════════
    LISTA DE CONVERSAS
@@ -374,8 +402,14 @@
   transition: border-color .15s;
   line-height: 1.4;
 }
-.message-textarea::placeholder { color: var(--c-muted); }
-.message-textarea:focus { border-color: var(--c-accent); }
+.message-textarea::placeholder { color: var(--c-muted); opacity: 1; }
+.message-textarea:focus {
+  border-color: var(--c-accent);
+  background-color: var(--c-surface3);
+  box-shadow: none;
+  color: var(--c-text);
+  outline: none;
+}
 
 .btn-send {
   width: 38px; height: 38px;
@@ -387,10 +421,15 @@
   flex-shrink: 0;
   transition: transform .15s, opacity .15s;
   opacity: .5;
+  padding: 0;
+  line-height: 1;
+  box-shadow: none;
 }
+.btn-send:focus,
+.btn-send:active { box-shadow: none; outline: none; }
 .btn-send.ready { opacity: 1; }
 .btn-send:hover.ready { transform: scale(1.08); }
-.btn-send svg { width: 16px; height: 16px; fill: #fff; }
+.btn-send svg { width: 16px; height: 16px; fill: #fff !important; stroke: none; display: block; }
 
 /* ─── Indicador "digitando" ─── */
 .typing-indicator {

@@ -10,7 +10,7 @@
     --cor-padrao: #000000;
 }
 
-:root.chat{
+:root {
   --c-bg:        #0f0d0b;
   --c-surface:   #1a1713;
   --c-surface2:  #231f1a;
@@ -28,4 +28,7 @@
   --r-bubble:  14px;
   --r-avatar:  50%;
   --shadow-lg: 0 24px 60px rgba(0,0,0,.65), 0 4px 16px rgba(0,0,0,.4);
+
+  --font-body:  var(--fonte-padrao);
+  --font-serif: Georgia, serif;
 }
