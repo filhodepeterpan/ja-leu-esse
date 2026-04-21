@@ -1,3 +1,11 @@
 @media (max-width: 1200px) {
-    
+    #chat-widget {
+        bottom: 0; right: 0; left: 0;
+        width: 100%;
+        border-radius: var(--r-widget) var(--r-widget) 0 0;
+        height: 88dvh;
+    }
+    #chat-fab { 
+        bottom: 20px; right: 20px; 
+    }
 }

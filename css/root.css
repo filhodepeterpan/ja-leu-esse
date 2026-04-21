@@ -9,3 +9,23 @@
     --fonte-padrao: "Roboto", sans-serif;
     --cor-padrao: #000000;
 }
+
+:root.chat{
+  --c-bg:        #0f0d0b;
+  --c-surface:   #1a1713;
+  --c-surface2:  #231f1a;
+  --c-surface3:  #2c2720;
+  --c-border:    #332e26;
+  --c-accent:    #c8882a;
+  --c-accent2:   #e8a84a;
+  --c-text:      #f0ead8;
+  --c-muted:     #8a7f6e;
+  --c-bubble-me: #2a2218;
+  --c-bubble-them: #1f1c16;
+  --c-online:    #6dbf8a;
+
+  --r-widget:  16px;
+  --r-bubble:  14px;
+  --r-avatar:  50%;
+  --shadow-lg: 0 24px 60px rgba(0,0,0,.65), 0 4px 16px rgba(0,0,0,.4);
+}

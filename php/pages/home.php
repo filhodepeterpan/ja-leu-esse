@@ -2,6 +2,7 @@
     session_start();
     
     require('../scripts/stock_photo.php');
+    require('../scripts/functions.php');
 
 ?>
 
@@ -17,7 +18,6 @@
     <main class="d-flex justify-content-center align-items-center">
         <div id="meuCarrossel" class="carousel slide w-25" data-bs-ride="carousel">
 
-            <!-- Indicadores (bolinhas) -->
             <div class="carousel-indicators">
                 <?php foreach($stock_photos as $index => $photo): ?>
                     <button type="button" data-bs-target="#meuCarrossel" data-bs-slide-to="<?=$index?>" class="<?=$photo['status']?>"></button>
