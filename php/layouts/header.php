@@ -4,35 +4,40 @@
     }
 
     if(isset($_POST['logout'])){
-        session_destroy();
-        header("Location:../pages/home.php");
+        header("Location:../scripts/logout.php");
     }
+
+    $logado = isset($_SESSION['logado']);
 
 ?>
 
 <header>
     <nav>
         <div class="logo">
-            <a href="../index.php"><img src="../assets/logo.png" alt="Logo"></a>
+            <a href="../../index.php"><img src="../../assets/img/logo.png" alt="Logo" width="50"></a>
+            <a href="../../index.php"><h1 class="logo-titulo">Já leu esse?</h1></a>
         </div>
 
         <div class="nav-links">
             <a href="../pages/home.php">Início</a>
-            <a href="../pages/perfil.php">Meu perfil</a>
+
+            <?php if ($logado): ?>
+                <a href="../pages/trocas.php">Trocas</a>
+                <a href="../pages/perfil.php">Meu perfil</a>
+            <?php endif; ?>
         </div>
 
         <div class="nav-usuario">
-            <?php if (!isset($_SESSION['logado'])): ?>
-                <form action="#" method="POST" id="form-login">
-                    <input type="hidden" value="login" name="login">
-                    <button type="submit" id="login">Login</button>
-                </form>
-                
-            <?php else: ?>
-                <form action="#" method="POST" id="form-logout">
+            <?php if ($logado): ?>
+                <form action="#" method="POST" id="form-user-logout" class="form-user">
                     <p><?=@$_SESSION['user']?>!</p>
                     <input type="hidden" value="logout" name="logout">
-                    <button type="submit" id="logout">Logout</button>
+                    <button type="submit" id="logout" class="session-button">Logout</button>
+                </form>
+            <?php else: ?>
+                <form action="#" method="POST" id="form-user-login" class="form-user">
+                    <input type="hidden" value="login" name="login">
+                    <button type="submit" id="login" class="session-button">Login</button>
                 </form>
             <?php endif; ?>
         </div>
