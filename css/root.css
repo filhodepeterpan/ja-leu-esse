@@ -6,6 +6,23 @@
 }
 
 :root{
+    --espacamento-padrao-tela: 1rem 2rem;
+
     --fonte-padrao: "Roboto", sans-serif;
-    --cor-padrao: #000000;
+    --cor-fonte-padrao: #000000;
+
+    --cor-bg: #EDE4D8;
+    --cor-bg-header: #D6CDC2;
+
+    --cor-primaria: #9DB8A5;
+    --cor-primaria-light: #C7D6C9;
+
+    --cor-secundaria: #E8A38F;
+    --cor-secundaria-light: #F2C1B3;
+
+    --cor-destaque: #B9A3B8;
+    --cor-destaque-dark: #8d4d8d;
+
+     --cor-erro: #FF6B6B;
+     --cor-sucesso: #5db05f;
 }
