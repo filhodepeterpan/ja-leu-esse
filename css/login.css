@@ -1,0 +1,36 @@
+#formularios{
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+#formLogin, #formCadastro{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--cor-bg-header);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#formCadastro{
+    display: none;
+}
+
+.form-submit{
+    background-color: var(--cor-primaria);
+    color: #fff;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.verificacao-cadastro{
+    color: var(--cor-destaque-dark);
+    font-size: 0.9rem;
+    text-align: center;
+    cursor: pointer;
+}
