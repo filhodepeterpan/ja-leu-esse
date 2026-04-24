@@ -1,5 +1,12 @@
 <?php
 session_start();
+    
+require('../scripts/functions.php');
+
+if(verificaLogin()){
+    header("Location: home.php");
+    exit();
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postType = $_POST['post-type'];

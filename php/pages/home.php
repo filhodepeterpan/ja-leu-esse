@@ -1,7 +1,10 @@
 <?php
     session_start();
     
-    require('../scripts/stock_photo.php');
+    require('../scripts/functions.php');
+    include('../scripts/stock_photo.php');
+
+    $logado = verificaLogin();
 
 ?>
 

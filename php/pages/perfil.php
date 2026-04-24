@@ -1,3 +1,11 @@
+<?php
+    session_start();
+    
+    require('../scripts/functions.php');
+    aplicaRestricao();
+    
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>

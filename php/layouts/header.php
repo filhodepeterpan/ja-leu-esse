@@ -1,5 +1,4 @@
 <?php
-    include "../scripts/functions.php";
     $logado = verificaLogin();
 
     if(isset($_POST['login'])){    
