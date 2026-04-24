@@ -1,4 +1,6 @@
 <?php
+    $logado = verificaLogin();
+
     if(isset($_POST['login'])){    
         header("Location:../pages/login.php");
     }
@@ -6,8 +8,6 @@
     if(isset($_POST['logout'])){
         header("Location:../scripts/logout.php");
     }
-
-    $logado = isset($_SESSION['logado']);
 
 ?>
 
