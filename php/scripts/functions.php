@@ -1,13 +1,9 @@
 <?php
     function verificaLogin(){
-        if (isset($_SESSION['logado']) ?? false) return true;
-
-        return false;
+        return isset($_SESSION['logado']) ?? false;
     }
 
     function aplicaRestricao(){
-        if (!verificaLogin()) {
-            header("Location:../pages/login.php");
-        }
+        if (!verificaLogin()) header("Location:../pages/login.php");
     }
 ?>
