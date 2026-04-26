@@ -4,3 +4,5 @@ env.php
 *.ini
 *.log
 *.cache
+
+api/
