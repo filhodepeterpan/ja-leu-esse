@@ -34,6 +34,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo "<script>alert('Cadastro realizado com sucesso!');</script>";  
     }
+    else if (!isset($postType)) {
+        header("Location: login.php");
+        exit();
+    }
     else{
         echo throw new Exception("Ocorreu um erro inesperado. Tente novamente mais tarde.");
     }
