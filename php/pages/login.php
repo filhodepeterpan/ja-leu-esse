@@ -12,12 +12,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postType = $_POST['post-type'];
 
     if ($postType === 'login') {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $email = $_POST['nm_email'];
+        $senha = $_POST['cd_senha'];
 
-        if ($username === 'admin' && $password === '123') {
+        if ($email === 'admin@example.com' && $senha === '123') {
             $_SESSION['logado'] = true;
-            $_SESSION['user'] = $username;
+            $_SESSION['user'] = $email;
             header("Location:../pages/home.php");
             exit();
         } 
@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     } 
     else if ($postType === 'cadastro') {
-        $nome = $_POST['nome'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $nome = $_POST['nm_usuario'];
+        $email = $_POST['nm_email'];
+        $senha = $_POST['cd_senha'];
 
         // lógica do banco
 
@@ -55,11 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div id="formularios">
             <form action="#" method="POST" id="formLogin">
                 <h1>Login</h1>
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
+                <label for="nm_email">Email:</label>
+                <input type="email" id="nm_email" name="nm_email" required>
                 
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <label for="cd_senha">Senha:</label>
+                <input type="password" id="cd_senha" name="cd_senha" required>
 
                 <input type="hidden" name="post-type" value="login">
 
@@ -68,14 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </form>
             <form action="#" method="POST" id="formCadastro">
                 <h1>Cadastro</h1>
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required>
+                <label for="nm_usuario">Nome:</label>
+                <input type="text" id="nm_usuario" name="nm_usuario" required>
 
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <label for="nm_email">Email:</label>
+                <input type="email" id="nm_email" name="nm_email" required>
+                
+                <label for="cd_senha">Senha:</label>
+                <input type="password" id="cd_senha" name="cd_senha" required>
 
                 <input type="hidden" name="post-type" value="cadastro">
 
