@@ -19,11 +19,21 @@ export class FormDinamico {
 
     mostraFormLogin(){
         this.formCadastro.style.display = 'none';
+        this.limpaForm();
         this.formLogin.style.display = 'flex';
     }
 
     mostraFormCadastro(){
         this.formLogin.style.display = 'none';
+        this.limpaForm();
         this.formCadastro.style.display = 'flex';
+    }
+
+    limpaForm(){
+        const form = document.querySelectorAll('input');
+
+        form.forEach((campo) => {
+            campo.value = '';
+        });
     }
 }
