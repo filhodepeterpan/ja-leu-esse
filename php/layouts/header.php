@@ -30,7 +30,7 @@
         <div class="nav-usuario">
             <?php if ($logado): ?>
                 <form action="#" method="POST" id="form-user-logout" class="form-user">
-                    <p>@<?=$_SESSION['user']?></p>
+                    <p><?=$_SESSION['nome']?></p>
                     <input type="hidden" value="logout" name="logout">
                     <button type="submit" id="logout" class="session-button">Logout</button>
                 </form>

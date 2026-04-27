@@ -15,10 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($postType === 'login') {
         $email = $_POST['nm_email'];
         $senha = $_POST['cd_senha'];
+        $nome = $_POST['nm_usuario'] ?? 'Usuário'; // futuramente, ele vai ser resgatodo do banco, mas por enquanto, é só um placeholder
 
         if ($email === 'admin@example.com' && $senha === '123') {
             $_SESSION['logado'] = true;
             $_SESSION['user'] = $email;
+            $_SESSION['nome'] = $nome; 
             header("Location:../pages/home.php");
             exit();
         } else {
