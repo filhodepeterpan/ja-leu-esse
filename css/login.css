@@ -15,10 +15,6 @@
     margin: 6rem 0;
 }
 
-#formCadastro{
-    display: none;
-}
-
 .form-name{
     text-align: center;
     color: var(--cor-destaque-dark);

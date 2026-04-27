@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postType = $_POST['post-type'];
 
     if ($postType === 'login') {
-        $email = $_POST['nm_email'];
-        $senha = $_POST['cd_senha'];
+        $email = $_POST['login_nm_email'];
+        $senha = $_POST['login_cd_senha'];
         $nome = $_POST['nm_usuario'] ?? 'Usuário'; // futuramente, ele vai ser resgatodo do banco, mas por enquanto, é só um placeholder
 
         if ($email === 'admin@example.com' && $senha === '123') {
@@ -32,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome = $_POST['nm_usuario'];
         $email = $_POST['nm_email'];
         $senha = $_POST['cd_senha'];
+        $confirmacaoSenha = $_POST['cd_confirmacao_senha'];
         $celular = $_POST['cd_telefone'] ?? null;
         $genero = $_POST['sg_genero'];
         $cep = $_POST['cd_cep'];
@@ -44,8 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $generoLiterarioFavorito = $_POST['nm_genero_literario_favorito'] ?? null;
 
         // lógica do banco
-
-        echo "<script>alert('Cadastro realizado com sucesso!');</script>";
+        if($senha === $confirmacaoSenha){
+            echo "<script>alert('Cadastro realizado com sucesso!');</script>";
+        }
+        else{
+            echo "<script>alert('Senhas incompatíveis')</script>";
+        }
+        
     } 
     else if (!isset($postType)) {
         header("Location: login.php");
@@ -73,12 +79,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form action="#" method="POST" id="formLogin">
                 <h1 class="form-name">Login</h1>
                 <div class="form-item">
-                    <label for="nm_email">Email:</label>
-                    <input type="email" id="nm_email" name="nm_email" required>
+                    <label for="login_nm_email">Email:</label>
+                    <input type="email" id="login_nm_email" name="login_nm_email" required>
                 </div>
                 <div class="form-item">
-                    <label for="cd_senha">Senha:</label>
-                    <input type="password" id="cd_senha" name="cd_senha" required>
+                    <label for="login_cd_senha">Senha:</label>
+                    <input type="password" id="login_cd_senha" name="login_cd_senha" required>
                 </div>
                 <input type="hidden" name="post-type" value="login">
                 <div class="form-item">
@@ -86,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <span id="semCadastro" class="verificacao-cadastro">Ainda não possuo cadastro</span>
                 </div>
             </form>
+
             <form action="#" method="POST" id="formCadastro">
                 <h1 class="form-name">Cadastro</h1>
                 <?php foreach ($atributos as $atributo): ?>

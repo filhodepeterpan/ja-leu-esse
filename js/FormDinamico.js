@@ -7,6 +7,8 @@ export class FormDinamico {
     }
 
     init() {
+        this.mostraFormLogin();
+        
         this.semCadastro?.addEventListener('click', () => {
             this.mostraFormCadastro();
         });

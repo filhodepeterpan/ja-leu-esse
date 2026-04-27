@@ -1,15 +1,15 @@
 export class ValidadorForm {
-    constructor(formCadastro, senha, confirmarSenha, submit, msg) {
+    constructor(formCadastro, senha, confirmarSenha, msg) {
         this.formCadastro = document.getElementById(formCadastro);
 
         this.senha = this.formCadastro.querySelector(`#${senha}`);
         this.confirmarSenha = this.formCadastro.querySelector(`#${confirmarSenha}`);
-        this.submit = this.formCadastro.querySelector(`#${submit}`);
         this.msg = this.formCadastro.querySelector(`#${msg}`);
     }
 
     init() {
         this.confereSenhas();
+        this.controlaValidacaoHTML();
     }
     
     confereSenhas() {
@@ -17,26 +17,31 @@ export class ValidadorForm {
             const senha = this.senha.value;
             const confirmar = this.confirmarSenha.value;
 
-            if (confirmar === "") {
-                this.confirmarSenha.style.border = "";
-                this.msg.innerHTML = "";
-                this.submit.disabled = true;
-                return;
-            }
+            this.msg.innerHTML = "";
+            this.confirmarSenha.style.outline = "";
+
+            if (confirmar === "") return;
 
             if (senha !== confirmar) {
                 this.confirmarSenha.style.outline = "1px solid red";
                 this.msg.innerHTML = "As senhas não coincidem.";
-                this.submit.disabled = true;
-            } 
-            else {
-                this.msg.innerHTML = "";
-                this.confirmarSenha.style.outline =  "none";    
-                this.submit.disabled = false;
             }
         };
 
         this.senha.addEventListener('input', validar);
         this.confirmarSenha.addEventListener('input', validar);
+    }
+
+    controlaValidacaoHTML(){
+        this.formCadastro.addEventListener('submit', (e) => {
+            const primeiroCampoInvalido = this.formCadastro.querySelector(':invalid');
+            
+            if (primeiroCampoInvalido) {
+                e.preventDefault();
+                primeiroCampoInvalido.scrollIntoView({ block: 'center' }); // sem smooth
+                primeiroCampoInvalido.focus();
+                primeiroCampoInvalido.reportValidity();
+            }
+        });
     }
 }

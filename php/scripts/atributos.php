@@ -34,25 +34,25 @@ $atributos = [
         "id" => "sg_uf",
         "nome" => "Estado",
         "tipo" => "text",
-        "constraints" => "required readonly maxlength='2'"
+        "constraints" => "readonly maxlength='2'"
     ],
     [
         "id" => "nm_cidade",
         "nome" => "Cidade",
         "tipo" => "text",
-        "constraints" => "required readonly"
+        "constraints" => "readonly"
     ],
     [
         "id" => "nm_bairro",
         "nome" => "Bairro",
         "tipo" => "text",
-        "constraints" => "required readonly"
+        "constraints" => "readonly"
     ],
     [
         "id" => "nm_logradouro",
         "nome" => "Logradouro",
         "tipo" => "text",
-        "constraints" => "required readonly"
+        "constraints" => "readonly"
     ],
     [
         "id" => "cd_numero",
