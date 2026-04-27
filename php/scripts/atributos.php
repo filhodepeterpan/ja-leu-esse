@@ -10,7 +10,7 @@ $atributos = [
         "id" => "cd_telefone",
         "nome" => "Celular",
         "tipo" => "tel",
-        "constraints" => "pattern='\(\d{2}\) \d{5}-\d{4}' title='Digite um número de celular no formato (99) 99999-9999'"
+        "constraints" => "pattern='\(\d{2}\) \d{5}-\d{4}' title='Digite um número de celular no formato (99) 99999-9999' maxlength='15'"
     ],
     [
         "id" => "sg_genero",
@@ -28,31 +28,31 @@ $atributos = [
         "id" => "cd_cep",
         "nome" => "CEP *",
         "tipo" => "text",
-        "constraints" => "required pattern='\d{5}-\d{3}' title='Digite um CEP no formato 12345-678'"
+        "constraints" => "required pattern='\d{5}-\d{3}' title='Digite um CEP no formato 12345-678' maxlength='9'"
     ],
     [
         "id" => "sg_uf",
         "nome" => "Estado",
         "tipo" => "text",
-        "constraints" => "required readonly maxlength='2'"
+        "constraints" => "readonly maxlength='2'"
     ],
     [
         "id" => "nm_cidade",
         "nome" => "Cidade",
         "tipo" => "text",
-        "constraints" => "required readonly"
+        "constraints" => "readonly"
     ],
     [
         "id" => "nm_bairro",
         "nome" => "Bairro",
         "tipo" => "text",
-        "constraints" => "required readonly"
+        "constraints" => "readonly"
     ],
     [
         "id" => "nm_logradouro",
         "nome" => "Logradouro",
         "tipo" => "text",
-        "constraints" => "required readonly"
+        "constraints" => "readonly"
     ],
     [
         "id" => "cd_numero",
