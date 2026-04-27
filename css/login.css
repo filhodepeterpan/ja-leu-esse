@@ -47,6 +47,6 @@
     cursor: pointer;
 }
 
-#msg-erro{
+.msg-erro{
     color: red;
 }
