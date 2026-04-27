@@ -23,10 +23,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['nome'] = $nome; 
             header("Location:../pages/home.php");
             exit();
-        } else {
+        } 
+        else {
             echo "<script>alert('Credenciais inválidas!');</script>";
         }
-    } else if ($postType === 'cadastro') {
+    } 
+    else if ($postType === 'cadastro') {
         $nome = $_POST['nm_usuario'];
         $email = $_POST['nm_email'];
         $senha = $_POST['cd_senha'];
@@ -44,11 +46,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // lógica do banco
 
         echo "<script>alert('Cadastro realizado com sucesso!');</script>";
-    } else if (!isset($postType)) {
+    } 
+    else if (!isset($postType)) {
         header("Location: login.php");
         exit();
-    } else {
-        echo throw new Exception("Ocorreu um erro inesperado. Tente novamente mais tarde.");
+    } 
+    else {
+        echo throw new Exception("Ocorreu um erro inesperado. Tente novamente mais tarde."); // exceção provisória para testes
     }
 }
 ?>
@@ -98,11 +102,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php else: ?>
                             <input type="<?= $atributo['tipo'] ?>" id="<?= $atributo['id'] ?>" name="<?= $atributo['id'] ?>"
                                 <?= $atributo['constraints'] ?>>
+                                <?php if ($atributo['id'] === 'cd_cep'):?>
+                                     <span class="msg-erro" id="erro-cep"></span>
+                                <?php endif;?>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
                 
-                <span id="msg-erro"></span>
+                <span class="msg-erro" id="erro-senhas"></span>
                 <input type="hidden" name="post-type" value="cadastro">
                 <button type="submit" class="form-submit" id="cadastrar">Cadastrar</button>
                 <span id="comCadastro" class="verificacao-cadastro">Já possuo cadastro</span>
