@@ -10,7 +10,7 @@ $atributos = [
         "id" => "cd_telefone",
         "nome" => "Celular",
         "tipo" => "tel",
-        "constraints" => "pattern='\(\d{2}\) \d{5}-\d{4}' title='Digite um número de celular no formato (99) 99999-9999'"
+        "constraints" => "pattern='\(\d{2}\) \d{5}-\d{4}' title='Digite um número de celular no formato (99) 99999-9999' maxlength='15'"
     ],
     [
         "id" => "sg_genero",
@@ -28,7 +28,7 @@ $atributos = [
         "id" => "cd_cep",
         "nome" => "CEP *",
         "tipo" => "text",
-        "constraints" => "required pattern='\d{5}-\d{3}' title='Digite um CEP no formato 12345-678'"
+        "constraints" => "required pattern='\d{5}-\d{3}' title='Digite um CEP no formato 12345-678' maxlength='9'"
     ],
     [
         "id" => "sg_uf",
