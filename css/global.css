@@ -28,6 +28,10 @@ main{
     padding: var(--espacamento-padrao-tela)
 }
 
+input{
+    outline: none;
+}
+
 .radio{
     display: flex;
     align-items: center;

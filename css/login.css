@@ -46,3 +46,7 @@
     text-align: center;
     cursor: pointer;
 }
+
+#msg-erro{
+    color: red;
+}

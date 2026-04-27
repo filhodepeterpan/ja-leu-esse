@@ -30,6 +30,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nome = $_POST['nm_usuario'];
         $email = $_POST['nm_email'];
         $senha = $_POST['cd_senha'];
+        $celular = $_POST['cd_telefone'] ?? null;
+        $genero = $_POST['sg_genero'];
+        $cep = $_POST['cd_cep'];
+        $estado = $_POST['sg_uf'];
+        $cidade = $_POST['nm_cidade'];
+        $bairro = $_POST['nm_bairro'];
+        $logradouro = $_POST['nm_logradouro'];
+        $numero = $_POST['cd_numero'];
+        $complemento = $_POST['ds_complemento'] ?? null;
+        $generoLiterarioFavorito = $_POST['nm_genero_literario_favorito'] ?? null;
 
         // lógica do banco
 
@@ -91,10 +101,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
-
+                
+                <span id="msg-erro"></span>
                 <input type="hidden" name="post-type" value="cadastro">
-
-                <button type="submit" class="form-submit">Cadastrar</button>
+                <button type="submit" class="form-submit" id="cadastrar">Cadastrar</button>
                 <span id="comCadastro" class="verificacao-cadastro">Já possuo cadastro</span>
             </form>
         </div>
