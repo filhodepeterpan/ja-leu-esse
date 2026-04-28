@@ -33,7 +33,7 @@ export class FormDinamico {
         const form = document.querySelectorAll('input');
 
         form.forEach((campo) => {
-            campo.value = '';
+            if(campo.type !== 'hidden') campo.value = '';
         });
     }
 }
