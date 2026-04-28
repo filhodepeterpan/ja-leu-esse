@@ -12,6 +12,10 @@ if (verificaLogin()) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $postType = $_POST['post-type'];
 
+    if (!isset($postType)) {
+        header("Location: login.php");
+        exit();
+    } 
     if ($postType === 'login') {
         $email = $_POST['login_nm_email'];
         $senha = $_POST['login_cd_senha'];
@@ -53,11 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
     } 
-    else if (!isset($postType)) {
-        header("Location: login.php");
-        exit();
-    } 
     else {
+        var_dump($_POST);
         echo throw new Exception("Ocorreu um erro inesperado. Tente novamente mais tarde."); // exceção provisória para testes
     }
 }
