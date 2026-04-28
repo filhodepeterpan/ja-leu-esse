@@ -2,15 +2,17 @@ export class ValidadorForm {
     constructor(formCadastro, senha, confirmarSenha, msg, tel, cep) {
         this.formCadastro = document.getElementById(formCadastro);
 
-        this.senha = this.formCadastro.querySelector(`#${senha}`);
-        this.confirmarSenha = this.formCadastro.querySelector(`#${confirmarSenha}`);
-        this.msg = this.formCadastro.querySelector(`#${msg}`);
+        this.senha = this.formCadastro?.querySelector(`#${senha}`);
+        this.confirmarSenha = this.formCadastro?.querySelector(`#${confirmarSenha}`);
+        this.msg = this.formCadastro?.querySelector(`#${msg}`);
 
-        this.telefone = this.formCadastro.querySelector(`#${tel}`);
-        this.cep = this.formCadastro.querySelector(`#${cep}`);
+        this.telefone = this.formCadastro?.querySelector(`#${tel}`);
+        this.cep = this.formCadastro?.querySelector(`#${cep}`);
     }
 
     init() {
+        if(!this.formCadastro) return;
+        
         this.aplicaMascaras();
         this.confereSenhas();
         this.controlaValidacaoHTML();
