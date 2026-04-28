@@ -278,3 +278,18 @@
     text-align: center;
     font-weight: 500;
 }
+
+.btn-trocar {
+    background: none;
+    border: none;
+    background-color: var(--cor-destaque-dark);
+    color: white;
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+}
+
+.btn-trocar:hover {
+    opacity: 0.8;
+}

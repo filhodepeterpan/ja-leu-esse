@@ -6,6 +6,7 @@ export class Trocas {
         this.btnFechar    = document.getElementById('modalFechar');
         this.btnAdicionar = document.getElementById('btnAdicionar');
         this.btnNegociar  = document.getElementById('btnNegociar');
+        this.btnTrocar = document.getElementById('btnTrocar');
 
         this.seletor       = document.getElementById('seletorLivros');
         this.seletorFechar = document.getElementById('seletorFechar');
@@ -48,6 +49,8 @@ export class Trocas {
         this.btnNegociar.addEventListener('click', () => {
             window.location.href = 'perfil.php';
         });
+
+        this.btnTrocar.addEventListener('click', () => this.resetarOferta());
     }
 
     abrirModal(dataset) {
@@ -84,9 +87,10 @@ export class Trocas {
         this.slotPlaceholder.classList.add('hidden');
         this.slotOfertaImg.classList.remove('hidden');
         this.slotOfertaNome.classList.remove('hidden');
+        this.btnTrocar.classList.remove('hidden');
 
         this.fecharSeletor();
-        this.atualizarBotao();
+        this.atualizarBotao(); 
     }
 
     resetarOferta() {
@@ -94,6 +98,7 @@ export class Trocas {
         this.slotPlaceholder.classList.remove('hidden');
         this.slotOfertaImg.classList.add('hidden');
         this.slotOfertaNome.classList.add('hidden');
+        this.btnTrocar.classList.add('hidden')
         this.btnNegociar.disabled = true;
     }
 

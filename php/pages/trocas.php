@@ -48,6 +48,8 @@
                         </div>
                         <img class="slot-img hidden" id="slotOfertaImg" src="" alt="">
                         <p class="slot-nome hidden" id="slotOfertaNome"></p>
+                        
+                        <button class="btn-trocar hidden" id="btnTrocar">Escolher outro livro</button>
                     </div>
 
                     <span class="modal-seta">⇄</span>
