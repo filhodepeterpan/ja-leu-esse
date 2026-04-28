@@ -8,7 +8,9 @@ export class Endereco {
         this.msg = document.getElementById(msg);
     }
 
-    init() {
+    init() {  
+        if(!this.cep) return;
+            
         this.verificaCEP();
     }
 

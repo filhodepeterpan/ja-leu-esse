@@ -7,6 +7,8 @@ export class FormDinamico {
     }
 
     init() {
+        if (!this.formLogin || !this.formCadastro) return;
+        
         this.mostraFormLogin();
         
         this.semCadastro?.addEventListener('click', () => {
@@ -32,7 +34,7 @@ export class FormDinamico {
     limpaForm(){
         const form = document.querySelectorAll('input');
 
-        form.forEach((campo) => {
+        form?.forEach((campo) => {
             if(campo.type !== 'hidden') campo.value = '';
         });
     }
