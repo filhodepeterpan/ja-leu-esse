@@ -74,9 +74,9 @@
                         <?php foreach($stock_photos as $index => $photo): ?>
                             <div class="seletor-card"
                                  data-index="<?= $index ?>"
-                                 data-nome="<?= htmlspecialchars($photo['nome']) ?>"
-                                 data-url="<?= htmlspecialchars($photo['url']) ?>"
-                                 data-alt="<?= htmlspecialchars($photo['alt']) ?>">
+                                 data-nome="<?= $photo['nome'] ?>"
+                                 data-url="<?= $photo['url'] ?>"
+                                 data-alt="<?= $photo['alt'] ?>">
                                 <img src="<?= $photo['url'] ?>" alt="<?= $photo['alt'] ?>" width="100px">
                                 <p><?= $photo['nome'] ?></p>
                             </div>
