@@ -3,27 +3,27 @@ export class Trocas {
         this.lista = document.getElementById(listaId);
         this.modal = document.getElementById(modalId);
 
-        this.btnFechar    = document.getElementById('modalFechar');
+        this.btnFechar = document.getElementById('modalFechar');
         this.btnAdicionar = document.getElementById('btnAdicionar');
-        this.btnNegociar  = document.getElementById('btnNegociar');
+        this.btnNegociar = document.getElementById('btnNegociar');
         this.btnTrocar = document.getElementById('btnTrocar');
 
-        this.seletor       = document.getElementById('seletorLivros');
+        this.seletor = document.getElementById('seletorLivros');
         this.seletorFechar = document.getElementById('seletorFechar');
 
         this.slotPlaceholder = document.getElementById('slotPlaceholder');
-        this.slotOfertaImg   = document.getElementById('slotOfertaImg');
-        this.slotOfertaNome  = document.getElementById('slotOfertaNome');
+        this.slotOfertaImg = document.getElementById('slotOfertaImg');
+        this.slotOfertaNome = document.getElementById('slotOfertaNome');
 
-        this.slotDesejoImg  = document.getElementById('slotDesejoImg');
+        this.slotDesejoImg = document.getElementById('slotDesejoImg');
         this.slotDesejoNome = document.getElementById('slotDesejoNome');
 
         this.livroDesejado = null;
-        this.livroOferta   = null;
+        this.livroOferta = null;
     }
 
     init() {
-        if(!this.lista) return;
+        if (!this.lista) return;
 
         this.lista.querySelectorAll('.card-livro').forEach(card => {
             card.addEventListener('click', () => this.abrirModal(card.dataset));
@@ -56,8 +56,8 @@ export class Trocas {
     abrirModal(dataset) {
         this.livroDesejado = { nome: dataset.nome, url: dataset.url, alt: dataset.alt };
 
-        this.slotDesejoImg.src        = this.livroDesejado.url;
-        this.slotDesejoImg.alt        = this.livroDesejado.alt;
+        this.slotDesejoImg.src = this.livroDesejado.url;
+        this.slotDesejoImg.alt = this.livroDesejado.alt;
         this.slotDesejoNome.textContent = this.livroDesejado.nome;
 
         this.modal.classList.remove('hidden');
@@ -80,8 +80,8 @@ export class Trocas {
     selecionarOferta(dataset) {
         this.livroOferta = { nome: dataset.nome, url: dataset.url, alt: dataset.alt };
 
-        this.slotOfertaImg.src          = this.livroOferta.url;
-        this.slotOfertaImg.alt          = this.livroOferta.alt;
+        this.slotOfertaImg.src = this.livroOferta.url;
+        this.slotOfertaImg.alt = this.livroOferta.alt;
         this.slotOfertaNome.textContent = this.livroOferta.nome;
 
         this.slotPlaceholder.classList.add('hidden');
@@ -90,7 +90,7 @@ export class Trocas {
         this.btnTrocar.classList.remove('hidden');
 
         this.fecharSeletor();
-        this.atualizarBotao(); 
+        this.atualizarBotao();
     }
 
     resetarOferta() {
