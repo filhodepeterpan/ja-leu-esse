@@ -4,12 +4,6 @@
     require('../scripts/functions.php');
     aplicaRestricao();
     
-?><?php
-    session_start();
-    
-    require('../scripts/functions.php');
-    aplicaRestricao();
-    
 ?>
 
 <!DOCTYPE html>
