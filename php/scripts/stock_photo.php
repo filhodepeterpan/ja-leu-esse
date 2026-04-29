@@ -24,6 +24,42 @@ $stock_photos = [
         "url" => "https://m.media-amazon.com/images/I/810GHGtf9zL._AC_UF1000,1000_QL80_.jpg",
         "alt" => "Capa do livro Pedro Páramo",
         "status" => ""
+    ],
+    4 => [
+        "nome" => "Crime e Castigo",
+        "url" => "https://m.media-amazon.com/images/I/81OVkFDLr2L._UF1000,1000_QL80_.jpg",
+        "alt" => "Capa do livro Crime e Castigo",
+        "status" => ""
+    ],
+    5 => [
+        "nome" => "Sombras de Reis Barbudos",
+        "url" => "https://m.media-amazon.com/images/I/91Jz85A8JYL._UF1000,1000_QL80_.jpg",
+        "alt" => "Capa do livro Sombras de Reis Barbudos",
+        "status" => ""
+    ],
+    6 => [
+        "nome" => "1984",
+        "url" => "https://m.media-amazon.com/images/I/71kxa1-0mfL.jpg",
+        "alt" => "Capa do livro 1984",
+        "status" => ""
+    ],
+    7 => [
+        "nome" => "Admirável Mundo Novo",
+        "url" => "https://m.media-amazon.com/images/I/61hOp6UFvCL.jpg",
+        "alt" => "Capa do livro Admirável Mundo Novo",
+        "status" => ""
+    ],
+    8 => [
+        "nome" => "A Metamorfose",
+        "url" => "https://m.media-amazon.com/images/I/8115Gj1cb6L._UF1000,1000_QL80_.jpg",
+        "alt" => "Capa do livro A Metamorfose",
+        "status" => ""
+    ],
+    9 => [
+        "nome" => "O Estrangeiro",
+        "url" => "https://m.media-amazon.com/images/I/71UypkUjStL.jpg",
+        "alt" => "Capa do livro O Estrangeiro",
+        "status" => ""
     ]
 ]
 ?>
