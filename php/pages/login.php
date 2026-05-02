@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+require('../config/env.php');
 require('../scripts/functions.php');
 require('../scripts/atributos.php');
 
