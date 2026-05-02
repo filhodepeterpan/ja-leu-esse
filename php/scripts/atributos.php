@@ -22,7 +22,8 @@ $atributos = [
             "Não-binário" => "NB",
             "Prefiro não informar" => "NA"
         ],
-        "constraints" => "required maxlength='2' placeholder='F, M, NB ou NA'"
+        "constraints" => "required",
+        "default" => "F"
     ],
     [
         "id" => "cd_cep",
@@ -91,4 +92,3 @@ $atributos = [
         "constraints" => "required"
     ]
 ];
-?>

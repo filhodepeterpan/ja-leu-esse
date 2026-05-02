@@ -14,6 +14,7 @@ if (verificaLogin()) {
 $mensagem = ['texto' => '', 'tipo' => ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
     $postType = $_POST['post-type'] ?? '';
 
     if ($postType === 'login') {
@@ -30,26 +31,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     } elseif ($postType === 'cadastro') {
 
-        $senha            = $_POST['cd_senha']             ?? '';
+        $senha = $_POST['cd_senha'] ?? '';
         $confirmacaoSenha = $_POST['cd_confirmacao_senha'] ?? '';
+        $genero = $_POST['sg_genero'] ?? null;
 
         if ($senha !== $confirmacaoSenha) {
             $mensagem = ['texto' => 'As senhas não coincidem.', 'tipo' => 'erro'];
+        } elseif (!$genero) {
+            $mensagem = ['texto' => 'Selecione um gênero.', 'tipo' => 'erro'];
         } else {
-            // As chaves do array devem ser idênticas aos nomes das colunas na tabela
             $dados = [
-                'nm_usuario'                => $_POST['nm_usuario'],
-                'nm_email'                  => $_POST['nm_email'],
-                'cd_senha'                  => $senha,
-                'cd_telefone'               => $_POST['cd_telefone']                  ?? null,
-                'sg_genero'                 => $_POST['sg_genero'],
-                'cd_cep'                    => $_POST['cd_cep'],
-                'sg_uf'                     => $_POST['sg_uf'],
-                'nm_cidade'                 => $_POST['nm_cidade'],
-                'nm_bairro'                 => $_POST['nm_bairro'],
-                'nm_logradouro'             => $_POST['nm_logradouro'],
-                'cd_numero'                 => $_POST['cd_numero'],
-                'ds_complemento'            => $_POST['ds_complemento']               ?? null,
+                'nm_usuario' => $_POST['nm_usuario'],
+                'nm_email' => $_POST['nm_email'],
+                'cd_senha' => $senha,
+                'cd_telefone' => $_POST['cd_telefone'] ?? null,
+                'sg_genero' => $genero,
+                'cd_cep' => $_POST['cd_cep'],
+                'sg_uf' => $_POST['sg_uf'],
+                'nm_cidade' => $_POST['nm_cidade'],
+                'nm_bairro' => $_POST['nm_bairro'],
+                'nm_logradouro' => $_POST['nm_logradouro'],
+                'cd_numero' => $_POST['cd_numero'],
+                'ds_complemento' => $_POST['ds_complemento'] ?? null,
                 'nm_genero_literario_favorito' => $_POST['nm_genero_literario_favorito'] ?? null,
             ];
 
@@ -100,22 +103,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <?php foreach ($atributos as $atributo): ?>
                     <div class="form-item">
                         <label for="<?= $atributo['id'] ?>"><?= $atributo['nome'] ?></label>
+
                         <?php if ($atributo['tipo'] === 'radio'): ?>
                             <?php foreach ($atributo['options'] as $optionName => $optionValue): ?>
                                 <div class="radio">
-                                    <input type="radio"
-                                           id="<?= $atributo['id'] . '_' . $optionValue ?>"
-                                           name="<?= $atributo['id'] ?>"
-                                           value="<?= $optionValue ?>"
-                                           <?= $atributo['constraints'] ?>>
+                                    <input type="radio" id="<?= $atributo['id'] . '_' . $optionValue ?>"
+                                        name="<?= $atributo['id'] ?>" value="<?= $optionValue ?>" <?= $atributo['constraints'] ?>
+                                        <?= ($atributo['default'] ?? '') === $optionValue ? 'checked' : '' ?>>
                                     <label for="<?= $atributo['id'] . '_' . $optionValue ?>"><?= $optionName ?></label>
                                 </div>
                             <?php endforeach; ?>
+                            
                         <?php else: ?>
-                            <input type="<?= $atributo['tipo'] ?>"
-                                   id="<?= $atributo['id'] ?>"
-                                   name="<?= $atributo['id'] ?>"
-                                   <?= $atributo['constraints'] ?>>
+                            <input type="<?= $atributo['tipo'] ?>" id="<?= $atributo['id'] ?>" name="<?= $atributo['id'] ?>"
+                                <?= $atributo['constraints'] ?>>
                             <?php if ($atributo['id'] === 'cd_cep'): ?>
                                 <span class="msg-erro" id="erro-cep"></span>
                             <?php endif; ?>

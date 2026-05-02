@@ -8,9 +8,9 @@ export class FormDinamico {
 
     init() {
         if (!this.formLogin || !this.formCadastro) return;
-        
+
         this.mostraFormLogin();
-        
+
         this.semCadastro?.addEventListener('click', () => {
             this.mostraFormCadastro();
         });
@@ -19,23 +19,23 @@ export class FormDinamico {
         });
     }
 
-    mostraFormLogin(){
+    mostraFormLogin() {
         this.formCadastro.style.display = 'none';
         this.limpaForm();
         this.formLogin.style.display = 'flex';
     }
 
-    mostraFormCadastro(){
+    mostraFormCadastro() {
         this.formLogin.style.display = 'none';
         this.limpaForm();
         this.formCadastro.style.display = 'flex';
     }
 
-    limpaForm(){
+    limpaForm() {
         const form = document.querySelectorAll('input');
 
         form?.forEach((campo) => {
-            if(campo.type !== 'hidden') campo.value = '';
+            if (campo.type !== 'hidden' && campo.type !== 'radio') campo.value = '';
         });
     }
 }

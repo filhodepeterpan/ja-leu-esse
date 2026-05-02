@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/05/2026 às 20:49
+-- Tempo de geração: 02/05/2026 às 21:14
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -98,7 +98,8 @@ ALTER TABLE `mensagem`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id_usuario`),
-  ADD UNIQUE KEY `uq_usuario_email` (`nm_email`);
+  ADD UNIQUE KEY `uq_usuario_email` (`nm_email`),
+  ADD UNIQUE KEY `cd_telefone` (`cd_telefone`);
 
 --
 -- AUTO_INCREMENT para tabelas despejadas
