@@ -6,3 +6,5 @@ env.php
 *.cache
 
 api/
+
+users_profile_images/

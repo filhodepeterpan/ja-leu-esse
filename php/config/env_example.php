@@ -1,12 +1,12 @@
 <?php
     $DATABASE = [
         'host' => '',
+        'dbname' => '',
         'username' => '',
         'password' => '',
     ];
 
-    $API = [
+    $API_CRUD = [
         'url' => '',
-        'key' => '',
     ];
 ?>
