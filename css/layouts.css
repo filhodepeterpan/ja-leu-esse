@@ -1,38 +1,38 @@
 /* HEADER */
-.session-button{
+.session-button {
     cursor: pointer;
 }
 
-header{
+header {
     background-color: var(--cor-bg-header);
     padding: var(--espacamento-padrao-tela);
 }
 
-header nav{
+header nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.logo{
+.logo {
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
-.logo-titulo{
+.logo-titulo {
     font-size: 1.5rem;
     /* color: var(--cor-primaria); */
 }
 
-.nav-links{
+.nav-links {
     display: flex;
     gap: 1rem;
     color: var(--cor-secundaria);
     font-weight: bold;
 }
 
-.session-button{
+.session-button {
     background-color: var(--cor-destaque-dark);
     color: #FFFFFF;
     border: none;
@@ -40,12 +40,20 @@ header nav{
     border-radius: 4px;
 }
 
-.form-user{
+.form-user {
     display: inline-flex;
 }
 
+.header-foto-perfil {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
 /* FOOTER */
-footer{
+footer {
     background-color: var(--cor-bg-header);
     text-align: center;
     padding: var(--espacamento-padrao-tela);

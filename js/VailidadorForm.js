@@ -8,14 +8,18 @@ export class ValidadorForm {
 
         this.telefone = this.formCadastro?.querySelector(`#${tel}`);
         this.cep = this.formCadastro?.querySelector(`#${cep}`);
+
+        this.perfilContainer = document.querySelector('.perfil-container');
     }
 
     init() {
-        if(!this.formCadastro) return;
-        
+        if(!this.formCadastro && !this.perfilContainer) return; 
         this.aplicaMascaras();
-        this.confereSenhas();
-        this.controlaValidacaoHTML();
+
+        if(this.senha && this.confirmarSenha) {
+            this.confereSenhas();
+            this.controlaValidacaoHTML();
+        }
     }
     
     confereSenhas() {
