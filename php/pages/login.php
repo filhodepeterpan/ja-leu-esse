@@ -10,61 +10,56 @@ if (verificaLogin()) {
     exit();
 }
 
+// ─── Processamento do formulário ──────────────────────────────────────────────
+$mensagem = ['texto' => '', 'tipo' => ''];
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $postType = $_POST['post-type'];
+    $postType = $_POST['post-type'] ?? '';
 
-    if (!isset($postType)) {
-        header("Location: login.php");
-        exit();
-    } 
     if ($postType === 'login') {
-        $email = $_POST['login_nm_email'];
-        $senha = $_POST['login_cd_senha'];
-        $nome = $_POST['nm_usuario'] ?? 'Usuário'; // futuramente, ele vai ser resgatodo do banco, mas por enquanto, é só um placeholder
 
-        if ($email === 'admin@example.com' && $senha === '123') {
-            $_SESSION['logado'] = true;
-            $_SESSION['user'] = $email;
-            $_SESSION['nome'] = $nome; 
-            header("Location:../pages/home.php");
+        $email = $_POST['login_nm_email'] ?? '';
+        $senha = $_POST['login_cd_senha'] ?? '';
+
+        if (logarUsuario($email, $senha)) {
+            header("Location: ../pages/home.php");
             exit();
-        } 
-        else {
-            echo "<script>alert('Credenciais inválidas!');</script>";
         }
-    } 
-    else if ($postType === 'cadastro') {
-        $nome = $_POST['nm_usuario'];
-        $email = $_POST['nm_email'];
-        $senha = $_POST['cd_senha'];
-        $confirmacaoSenha = $_POST['cd_confirmacao_senha'];
-        $celular = $_POST['cd_telefone'] ?? null;
-        $genero = $_POST['sg_genero'];
-        $cep = $_POST['cd_cep'];
-        $estado = $_POST['sg_uf'];
-        $cidade = $_POST['nm_cidade'];
-        $bairro = $_POST['nm_bairro'];
-        $logradouro = $_POST['nm_logradouro'];
-        $numero = $_POST['cd_numero'];
-        $complemento = $_POST['ds_complemento'] ?? null;
-        $generoLiterarioFavorito = $_POST['nm_genero_literario_favorito'] ?? null;
 
-        // lógica do banco
-        if($senha === $confirmacaoSenha){
-            echo "<script>alert('Cadastro realizado com sucesso!');</script>";
+        $mensagem = ['texto' => 'E-mail ou senha inválidos.', 'tipo' => 'erro'];
+
+    } elseif ($postType === 'cadastro') {
+
+        $senha            = $_POST['cd_senha']             ?? '';
+        $confirmacaoSenha = $_POST['cd_confirmacao_senha'] ?? '';
+
+        if ($senha !== $confirmacaoSenha) {
+            $mensagem = ['texto' => 'As senhas não coincidem.', 'tipo' => 'erro'];
+        } else {
+            // As chaves do array devem ser idênticas aos nomes das colunas na tabela
+            $dados = [
+                'nm_usuario'                => $_POST['nm_usuario'],
+                'nm_email'                  => $_POST['nm_email'],
+                'cd_senha'                  => $senha,
+                'cd_telefone'               => $_POST['cd_telefone']                  ?? null,
+                'sg_genero'                 => $_POST['sg_genero'],
+                'cd_cep'                    => $_POST['cd_cep'],
+                'sg_uf'                     => $_POST['sg_uf'],
+                'nm_cidade'                 => $_POST['nm_cidade'],
+                'nm_bairro'                 => $_POST['nm_bairro'],
+                'nm_logradouro'             => $_POST['nm_logradouro'],
+                'cd_numero'                 => $_POST['cd_numero'],
+                'ds_complemento'            => $_POST['ds_complemento']               ?? null,
+                'nm_genero_literario_favorito' => $_POST['nm_genero_literario_favorito'] ?? null,
+            ];
+
+            $mensagem = cadastrarUsuario($dados)
+                ? ['texto' => 'Cadastro realizado com sucesso!', 'tipo' => 'sucesso']
+                : ['texto' => 'Erro ao cadastrar. Tente novamente.', 'tipo' => 'erro'];
         }
-        else{
-            echo "<script>alert('Senhas incompatíveis')</script>";
-        }
-        
-    } 
-    else {
-        var_dump($_POST);
-        echo throw new Exception("Ocorreu um erro inesperado. Tente novamente mais tarde."); // exceção provisória para testes
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -76,8 +71,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <?php include('../layouts/header.php'); ?>
 
+    <?php if ($mensagem['texto']): ?>
+        <script>alert('<?= htmlspecialchars($mensagem['texto']) ?>');</script>
+    <?php endif; ?>
+
     <main>
         <div id="formularios">
+
             <form action="#" method="POST" id="formLogin">
                 <h1 class="form-name">Login</h1>
                 <div class="form-item">
@@ -103,26 +103,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php if ($atributo['tipo'] === 'radio'): ?>
                             <?php foreach ($atributo['options'] as $optionName => $optionValue): ?>
                                 <div class="radio">
-                                    <input type="radio" id="<?= $atributo['id'] . '_' . $optionValue ?>" name="<?= $atributo['id'] ?>"
-                                        value="<?= $optionValue ?>" <?= $atributo['constraints'] ?>>
+                                    <input type="radio"
+                                           id="<?= $atributo['id'] . '_' . $optionValue ?>"
+                                           name="<?= $atributo['id'] ?>"
+                                           value="<?= $optionValue ?>"
+                                           <?= $atributo['constraints'] ?>>
                                     <label for="<?= $atributo['id'] . '_' . $optionValue ?>"><?= $optionName ?></label>
                                 </div>
                             <?php endforeach; ?>
                         <?php else: ?>
-                            <input type="<?= $atributo['tipo'] ?>" id="<?= $atributo['id'] ?>" name="<?= $atributo['id'] ?>"
-                                <?= $atributo['constraints'] ?>>
-                                <?php if ($atributo['id'] === 'cd_cep'):?>
-                                     <span class="msg-erro" id="erro-cep"></span>
-                                <?php endif;?>
+                            <input type="<?= $atributo['tipo'] ?>"
+                                   id="<?= $atributo['id'] ?>"
+                                   name="<?= $atributo['id'] ?>"
+                                   <?= $atributo['constraints'] ?>>
+                            <?php if ($atributo['id'] === 'cd_cep'): ?>
+                                <span class="msg-erro" id="erro-cep"></span>
+                            <?php endif; ?>
                         <?php endif; ?>
                     </div>
                 <?php endforeach; ?>
-                
                 <span class="msg-erro" id="erro-senhas"></span>
                 <input type="hidden" name="post-type" value="cadastro">
                 <button type="submit" class="form-submit" id="cadastrar">Cadastrar</button>
                 <span id="comCadastro" class="verificacao-cadastro">Já possuo cadastro</span>
             </form>
+
         </div>
     </main>
 
