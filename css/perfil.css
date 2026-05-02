@@ -133,3 +133,8 @@
     border: 1px solid #333;
     background: transparent;
 }
+
+#deletarConta {
+    border-color: #c00;
+    color: #c00;
+}

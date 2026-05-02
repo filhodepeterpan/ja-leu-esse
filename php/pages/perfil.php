@@ -71,6 +71,7 @@ $fotoPerfil = $usuario['img_icone_perfil'] ? "../../{$usuario['img_icone_perfil'
 
             <div class="perfil-acoes">
                 <a href="perfil_edicao.php">Editar perfil</a>
+                <a href="../scripts/delete.php" id="deletarConta">Deletar conta</a>
             </div>
         </div>
     </main>

@@ -1,6 +1,6 @@
 <?php
 
-// ─── Sessão ───────────────────────────────────────────────────────────────────
+// Sessão
 
 function verificaLogin(): bool
 {
@@ -15,15 +15,15 @@ function aplicaRestricao(): void
     }
 }
 
-// ─── Comunicação com a API ────────────────────────────────────────────────────
+// Comunicação com a API
 
 function chamarAPI(string $url, string $method = 'GET', array $dados = []): array
 {
     $opcoes = [
         'http' => [
-            'method'        => $method,
-            'header'        => 'Content-Type: application/json',
-            'content'       => in_array($method, ['POST', 'PUT']) ? json_encode($dados) : null,
+            'method' => $method,
+            'header' => 'Content-Type: application/json',
+            'content' => in_array($method, ['POST', 'PUT']) ? json_encode($dados) : null,
             'ignore_errors' => true,
         ],
     ];
@@ -32,7 +32,7 @@ function chamarAPI(string $url, string $method = 'GET', array $dados = []): arra
     return json_decode($resposta, true) ?? [];
 }
 
-// ─── Usuário ──────────────────────────────────────────────────────────────────
+// Usuário
 
 /**
  * Retorna todos os dados de um usuário pelo ID.
@@ -54,7 +54,15 @@ function atualizarUsuario(int $id, array $dados): bool
     return isset($resposta['updated']);
 }
 
-// ─── Foto de perfil ───────────────────────────────────────────────────────────
+// Deleta o usuário.
+function deletarUsuario(int $id): bool
+{
+    global $API_CRUD;
+    $resposta = chamarAPI("{$API_CRUD['url']}?tabela=usuario&id=$id", 'DELETE');
+    return isset($resposta['deleted']) && $resposta['deleted'] > 0;
+}
+
+// Foto de perfil
 
 /**
  * Salva a foto de perfil do usuário, substituindo qualquer foto anterior.
@@ -74,8 +82,9 @@ function salvarFotoPerfil(int $idUsuario, array $arquivo): string|false
     // __DIR__ = php/scripts/ → ../../ = raiz do projeto
     $pasta = __DIR__ . "/../../assets/img/users_profile_images/$idUsuario/";
 
+    // Cria a pasta do usuário se não existir
     if (!is_dir($pasta)) {
-        mkdir($pasta, 0755, true);
+        mkdir($pasta, 0755, true); // Permissões padrão para pastas. Permite a sobrescrição dos arquivos.
     }
 
     // Remove foto anterior (qualquer extensão)
@@ -83,19 +92,19 @@ function salvarFotoPerfil(int $idUsuario, array $arquivo): string|false
         unlink($fotoAntiga);
     }
 
-    $destino   = $pasta . "photo.$extensao";
+    $destino = $pasta . "photo.$extensao";
     $caminhoDb = "assets/img/users_profile_images/$idUsuario/photo.$extensao";
 
     return move_uploaded_file($arquivo['tmp_name'], $destino) ? $caminhoDb : false;
 }
 
-// ─── Autenticação ─────────────────────────────────────────────────────────────
+// Autenticação
 
 function logarUsuario(string $email, string $senha): bool
 {
     global $API_CRUD;
 
-    $url      = "{$API_CRUD['url']}?tabela=usuario&nm_email=" . urlencode($email);
+    $url = "{$API_CRUD['url']}?tabela=usuario&nm_email=" . urlencode($email);
     $usuarios = chamarAPI($url);
 
     if (empty($usuarios) || !password_verify($senha, $usuarios[0]['cd_senha'])) {
@@ -103,10 +112,10 @@ function logarUsuario(string $email, string $senha): bool
     }
 
     $_SESSION['logado'] = true;
-    $_SESSION['id']     = (int) $usuarios[0]['id_usuario'];
-    $_SESSION['user']   = $usuarios[0]['nm_email'];
-    $_SESSION['nome']   = $usuarios[0]['nm_usuario'];
-    $_SESSION['foto']   = $usuarios[0]['img_icone_perfil'] ?? null;
+    $_SESSION['id'] = (int) $usuarios[0]['id_usuario'];
+    $_SESSION['user'] = $usuarios[0]['nm_email'];
+    $_SESSION['nome'] = $usuarios[0]['nm_usuario'];
+    $_SESSION['foto'] = $usuarios[0]['img_icone_perfil'] ?? null;
     return true;
 }
 
@@ -115,7 +124,7 @@ function cadastrarUsuario(array $dados): bool
     global $API_CRUD;
 
     $dados['cd_senha'] = password_hash($dados['cd_senha'], PASSWORD_DEFAULT);
-    $resposta          = chamarAPI("{$API_CRUD['url']}?tabela=usuario", 'POST', $dados);
+    $resposta = chamarAPI("{$API_CRUD['url']}?tabela=usuario", 'POST', $dados);
 
     return isset($resposta['id']);
 }
