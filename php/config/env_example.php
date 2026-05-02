@@ -1,6 +1,7 @@
 <?php
     $DATABASE = [
         'host' => '',
+        'dbname' => '',
         'username' => '',
         'password' => '',
     ];
