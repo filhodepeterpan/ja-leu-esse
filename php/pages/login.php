@@ -34,17 +34,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $senha = $_POST['cd_senha'] ?? '';
         $confirmacaoSenha = $_POST['cd_confirmacao_senha'] ?? '';
         $genero = $_POST['sg_genero'] ?? null;
+        $email = $_POST['nm_email'] ?? '';
+        $telefone = $_POST['cd_telefone'] ?? '';
 
         if ($senha !== $confirmacaoSenha) {
             $mensagem = ['texto' => 'As senhas não coincidem.', 'tipo' => 'erro'];
         } elseif (!$genero) {
             $mensagem = ['texto' => 'Selecione um gênero.', 'tipo' => 'erro'];
+        } elseif (verificaDuplicata('nm_email', $email)) {
+            $mensagem = ['texto' => 'Este e-mail já está cadastrado.', 'tipo' => 'erro'];
+        } elseif ($telefone && verificaDuplicata('cd_telefone', $telefone)) {
+            $mensagem = ['texto' => 'Este telefone já está cadastrado.', 'tipo' => 'erro'];
         } else {
             $dados = [
                 'nm_usuario' => $_POST['nm_usuario'],
-                'nm_email' => $_POST['nm_email'],
+                'nm_email' => $email,
                 'cd_senha' => $senha,
-                'cd_telefone' => $_POST['cd_telefone'] ?? null,
+                'cd_telefone' => $telefone ?: null,
                 'sg_genero' => $genero,
                 'cd_cep' => $_POST['cd_cep'],
                 'sg_uf' => $_POST['sg_uf'],
@@ -52,8 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'nm_bairro' => $_POST['nm_bairro'],
                 'nm_logradouro' => $_POST['nm_logradouro'],
                 'cd_numero' => $_POST['cd_numero'],
-                'ds_complemento' => $_POST['ds_complemento'] ?? null,
-                'nm_genero_literario_favorito' => $_POST['nm_genero_literario_favorito'] ?? null,
+                'ds_complemento' => $_POST['ds_complemento'] ?: null,
+                'nm_genero_literario_favorito' => $_POST['nm_genero_literario_favorito'] ?: null,
             ];
 
             $mensagem = cadastrarUsuario($dados)
@@ -113,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <label for="<?= $atributo['id'] . '_' . $optionValue ?>"><?= $optionName ?></label>
                                 </div>
                             <?php endforeach; ?>
-                            
+
                         <?php else: ?>
                             <input type="<?= $atributo['tipo'] ?>" id="<?= $atributo['id'] ?>" name="<?= $atributo['id'] ?>"
                                 <?= $atributo['constraints'] ?>>

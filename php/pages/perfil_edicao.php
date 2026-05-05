@@ -10,43 +10,54 @@ $mensagem = ['texto' => '', 'tipo' => ''];
 
 // ─── Processamento do formulário ──────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $dados = [
-        'nm_usuario' => $_POST['nm_usuario'],
-        'nm_email' => $_POST['nm_email'],
-        'cd_telefone' => $_POST['cd_telefone'] ?: null,
-        'sg_genero' => $_POST['sg_genero'],
-        'cd_cep' => $_POST['cd_cep'],
-        'sg_uf' => $_POST['sg_uf'],
-        'nm_cidade' => $_POST['nm_cidade'],
-        'nm_bairro' => $_POST['nm_bairro'],
-        'nm_logradouro' => $_POST['nm_logradouro'],
-        'cd_numero' => (int) $_POST['cd_numero'] ?: null,
-        'ds_complemento' => $_POST['ds_complemento'] ?: null,
-        'nm_genero_literario_favorito' => $_POST['nm_genero_literario_favorito'] ?: null,
-    ];
+    $email = $_POST['nm_email'] ?? '';
+    $telefone = $_POST['cd_telefone'] ?? '';
 
-    if (!empty($_FILES['foto_perfil']['name'])) {
-        $caminho = salvarFotoPerfil($_SESSION['id'], $_FILES['foto_perfil']);
-
-        if ($caminho) {
-            $dados['img_icone_perfil'] = $caminho;
-            $_SESSION['foto'] = $caminho;
-        } else {
-            $mensagem = ['texto' => 'Formato de imagem inválido. Use jpg, png ou webp.', 'tipo' => 'erro'];
-        }
+    if (verificaDuplicata('nm_email', $email, $_SESSION['id'])) {
+        $mensagem = ['texto' => 'Este e-mail já está em uso por outro usuário.', 'tipo' => 'erro'];
+    } elseif ($telefone && verificaDuplicata('cd_telefone', $telefone, $_SESSION['id'])) {
+        $mensagem = ['texto' => 'Este telefone já está em uso por outro usuário.', 'tipo' => 'erro'];
     }
 
-    if ($mensagem['tipo'] !== 'erro') {
-        $ok = atualizarUsuario($_SESSION['id'], $dados);
+    if ($mensagem['tipo'] !== 'erro'):
+        $dados = [
+            'nm_usuario' => $_POST['nm_usuario'],
+            'nm_email' => $email,
+            'cd_telefone' => $telefone ?: null,
+            'sg_genero' => $_POST['sg_genero'],
+            'cd_cep' => $_POST['cd_cep'],
+            'sg_uf' => $_POST['sg_uf'],
+            'nm_cidade' => $_POST['nm_cidade'],
+            'nm_bairro' => $_POST['nm_bairro'],
+            'nm_logradouro' => $_POST['nm_logradouro'],
+            'cd_numero' => (int) $_POST['cd_numero'] ?: null,
+            'ds_complemento' => $_POST['ds_complemento'] ?: null,
+            'nm_genero_literario_favorito' => $_POST['nm_genero_literario_favorito'] ?: null,
+        ];
 
-        if ($ok) {
-            $_SESSION['nome'] = $dados['nm_usuario'];
-            $_SESSION['user'] = $dados['nm_email'];
-            $mensagem = ['texto' => 'Perfil atualizado com sucesso!', 'tipo' => 'sucesso'];
-        } else {
-            $mensagem = ['texto' => 'Erro ao salvar. Tente novamente.', 'tipo' => 'erro'];
+        if (!empty($_FILES['foto_perfil']['name'])) {
+            $caminho = salvarFotoPerfil($_SESSION['id'], $_FILES['foto_perfil']);
+
+            if ($caminho) {
+                $dados['img_icone_perfil'] = $caminho;
+                $_SESSION['foto'] = $caminho;
+            } else {
+                $mensagem = ['texto' => 'Formato de imagem inválido. Use jpg, png ou webp.', 'tipo' => 'erro'];
+            }
         }
-    }
+
+        if ($mensagem['tipo'] !== 'erro') {
+            $ok = atualizarUsuario($_SESSION['id'], $dados);
+
+            if ($ok) {
+                $_SESSION['nome'] = $dados['nm_usuario'];
+                $_SESSION['user'] = $dados['nm_email'];
+                $mensagem = ['texto' => 'Perfil atualizado com sucesso!', 'tipo' => 'sucesso'];
+            } else {
+                $mensagem = ['texto' => 'Erro ao salvar. Tente novamente.', 'tipo' => 'erro'];
+            }
+        }
+    endif;
 }
 
 // Campos que não fazem sentido na edição de perfil
