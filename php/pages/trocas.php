@@ -1,9 +1,20 @@
 <?php
     session_start();
-    
+
+    require('../config/env.php');
     require('../scripts/functions.php');
-    include('../scripts/stock_photo.php');
     aplicaRestricao();
+    include('../scripts/stock_photo.php');
+
+    // Livros do próprio usuário — usados no seletor de oferta
+    $meus_livros = array_values(
+        array_filter($stock_photos, fn($l) => $l['id_usuario'] === $_SESSION['id'])
+    );
+
+    // Livros dos outros — exibidos na lista para desejar
+    $stock_photos = array_values(
+        array_filter($stock_photos, fn($l) => $l['id_usuario'] !== $_SESSION['id'])
+    );
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +84,7 @@
                         <button class="seletor-fechar" id="seletorFechar">&times;</button>
                     </div>
                     <div class="seletor-grid">
-                        <?php foreach($stock_photos as $index => $photo): ?>
+                        <?php foreach($meus_livros as $index => $photo): ?>
                             <div class="seletor-card"
                                  data-index="<?= $index ?>"
                                  data-nome="<?= $photo['nome'] ?>"
