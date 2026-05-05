@@ -1,6 +1,6 @@
 <?php
 
-// Sessão
+// ─── Sessão ───────────────────────────────────────────────────────────────────
 
 function verificaLogin(): bool
 {
@@ -15,7 +15,7 @@ function aplicaRestricao(): void
     }
 }
 
-// Comunicação com a API
+// ─── Comunicação com a API ────────────────────────────────────────────────────
 
 function chamarAPI(string $url, string $method = 'GET', array $dados = []): array
 {
@@ -32,11 +32,8 @@ function chamarAPI(string $url, string $method = 'GET', array $dados = []): arra
     return json_decode($resposta, true) ?? [];
 }
 
-// Usuário
+// ─── Usuário ──────────────────────────────────────────────────────────────────
 
-/**
- * Retorna todos os dados de um usuário pelo ID.
- */
 function buscarUsuario(int $id): array
 {
     global $API_CRUD;
@@ -44,9 +41,6 @@ function buscarUsuario(int $id): array
     return $resposta ?: [];
 }
 
-/**
- * Atualiza campos do usuário pelo ID.
- */
 function atualizarUsuario(int $id, array $dados): bool
 {
     global $API_CRUD;
@@ -54,7 +48,6 @@ function atualizarUsuario(int $id, array $dados): bool
     return isset($resposta['updated']);
 }
 
-// Deleta o usuário.
 function deletarUsuario(int $id): bool
 {
     global $API_CRUD;
@@ -62,14 +55,29 @@ function deletarUsuario(int $id): bool
     return isset($resposta['deleted']) && $resposta['deleted'] > 0;
 }
 
-// Foto de perfil
+/*
+verifica se o usuário já existe (telefone ou email já cadastrados)
+*/
+function verificaDuplicata(string $campo, string $valor, ?int $ignorarId = null): bool
+{
+    global $API_CRUD;
 
-/**
- * Salva a foto de perfil do usuário, substituindo qualquer foto anterior.
- * Cria a pasta do usuário se não existir.
- * Retorna o caminho relativo à raiz do projeto (para salvar no banco),
- * ou false em caso de erro.
- */
+    $url = "{$API_CRUD['url']}?tabela=usuario&$campo=" . urlencode($valor);
+    $resultado = chamarAPI($url);
+
+    if (empty($resultado))
+        return false;
+
+    // Na edição, ignora se o único resultado encontrado for o próprio usuário
+    if ($ignorarId !== null) {
+        $resultado = array_filter($resultado, fn($u) => (int) $u['id_usuario'] !== $ignorarId);
+    }
+
+    return !empty($resultado);
+}
+
+// ─── Foto de perfil ───────────────────────────────────────────────────────────
+
 function salvarFotoPerfil(int $idUsuario, array $arquivo): string|false
 {
     $extensoesPermitidas = ['jpg', 'jpeg', 'png', 'webp'];
@@ -79,15 +87,12 @@ function salvarFotoPerfil(int $idUsuario, array $arquivo): string|false
         return false;
     }
 
-    // __DIR__ = php/scripts/ → ../../ = raiz do projeto
     $pasta = __DIR__ . "/../../assets/img/users_profile_images/$idUsuario/";
 
-    // Cria a pasta do usuário se não existir
     if (!is_dir($pasta)) {
-        mkdir($pasta, 0755, true); // Permissões padrão para pastas. Permite a sobrescrição dos arquivos.
+        mkdir($pasta, 0755, true);
     }
 
-    // Remove foto anterior (qualquer extensão)
     foreach (glob($pasta . "photo.*") as $fotoAntiga) {
         unlink($fotoAntiga);
     }
@@ -98,7 +103,7 @@ function salvarFotoPerfil(int $idUsuario, array $arquivo): string|false
     return move_uploaded_file($arquivo['tmp_name'], $destino) ? $caminhoDb : false;
 }
 
-// Autenticação
+// ─── Autenticação ─────────────────────────────────────────────────────────────
 
 function logarUsuario(string $email, string $senha): bool
 {
