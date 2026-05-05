@@ -36,6 +36,24 @@ $fotoPerfil = $usuario['img_icone_perfil'] ? "../../{$usuario['img_icone_perfil'
             </div>
 
             <!-- Dados -->
+             <div class="perfil-campo">
+                <label for="meus_livros">Meus livros cadastrados</label>
+                <div id="meus_livros">
+                    <?php if(isset($livros)): ?>
+                        <?php foreach ($livros as $livro): ?>
+                            <div class="livro-item">
+                                <span class="livro-titulo"><?= htmlspecialchars($livro['nm_titulo']) ?></span>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <br>
+                        <span id="msgSemLivros"><i>Você ainda não cadastrou nenhum livro.</i></span>
+                    <?php endif; ?>
+                </div>
+                <div>
+                    <a href="livro_cadastro.php" id="cadastrarLivro">Cadastrar um Livro</a>
+                </div>
+             </div>
             <div class="perfil-campo">
                 <label>Nome</label>
                 <span><?= htmlspecialchars($usuario['nm_usuario'] ?? '—') ?></span>
