@@ -55,9 +55,6 @@ function deletarUsuario(int $id): bool
     return isset($resposta['deleted']) && $resposta['deleted'] > 0;
 }
 
-/*
-verifica se o usuário já existe (telefone ou email já cadastrados)
-*/
 function verificaDuplicata(string $campo, string $valor, ?int $ignorarId = null): bool
 {
     global $API_CRUD;
@@ -68,12 +65,85 @@ function verificaDuplicata(string $campo, string $valor, ?int $ignorarId = null)
     if (empty($resultado))
         return false;
 
-    // Na edição, ignora se o único resultado encontrado for o próprio usuário
     if ($ignorarId !== null) {
         $resultado = array_filter($resultado, fn($u) => (int) $u['id_usuario'] !== $ignorarId);
     }
 
     return !empty($resultado);
+}
+
+// ─── Livros ───────────────────────────────────────────────────────────────────
+
+function buscarLivro(int $idLivro): array
+{
+    global $API_CRUD;
+    $resposta = chamarAPI("{$API_CRUD['url']}?tabela=livro&id=$idLivro");
+    return $resposta ?: [];
+}
+
+function buscarLivrosDoUsuario(int $idUsuario): array
+{
+    global $API_CRUD;
+    return chamarAPI("{$API_CRUD['url']}?tabela=livro&id_usuario=$idUsuario");
+}
+
+function buscarTodosLivros(): array
+{
+    global $API_CRUD;
+    return chamarAPI("{$API_CRUD['url']}?tabela=livro");
+}
+
+function cadastrarLivro(array $dados): int|false
+{
+    global $API_CRUD;
+    $resposta = chamarAPI("{$API_CRUD['url']}?tabela=livro", 'POST', $dados);
+    return isset($resposta['id']) ? (int) $resposta['id'] : false;
+}
+
+function atualizarLivro(int $idLivro, array $dados): bool
+{
+    global $API_CRUD;
+    $resposta = chamarAPI("{$API_CRUD['url']}?tabela=livro&id=$idLivro", 'PUT', $dados);
+    return isset($resposta['updated']);
+}
+
+function deletarLivro(int $idLivro): bool
+{
+    global $API_CRUD;
+    $resposta = chamarAPI("{$API_CRUD['url']}?tabela=livro&id=$idLivro", 'DELETE');
+    return isset($resposta['deleted']) && $resposta['deleted'] > 0;
+}
+
+/**
+ * Salva a imagem do livro em assets/img/user{id}_books_images/{idLivro}.{ext}
+ * Substitui qualquer imagem anterior do mesmo livro.
+ * Retorna o caminho relativo à raiz para salvar no banco, ou false em erro.
+ */
+function salvarImagemLivro(int $idUsuario, int $idLivro, array $arquivo): string|false
+{
+    $extensoesPermitidas = ['jpg', 'jpeg', 'png', 'webp'];
+    $extensao = strtolower(pathinfo($arquivo['name'], PATHINFO_EXTENSION));
+
+    if (!in_array($extensao, $extensoesPermitidas) || $arquivo['error'] !== UPLOAD_ERR_OK) {
+        return false;
+    }
+
+    // __DIR__ = php/scripts/ → sobe 2 níveis até a raiz
+    $pasta = __DIR__ . "/../../assets/img/user{$idUsuario}_books_images/";
+
+    if (!is_dir($pasta)) {
+        mkdir($pasta, 0755, true);
+    }
+
+    // Remove imagem anterior deste livro (qualquer extensão)
+    foreach (glob($pasta . "$idLivro.*") as $imgAntiga) {
+        unlink($imgAntiga);
+    }
+
+    $destino = $pasta . "$idLivro.$extensao";
+    $caminhoDb = "assets/img/user{$idUsuario}_books_images/$idLivro.$extensao";
+
+    return move_uploaded_file($arquivo['tmp_name'], $destino) ? $caminhoDb : false;
 }
 
 // ─── Foto de perfil ───────────────────────────────────────────────────────────
