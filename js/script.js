@@ -3,6 +3,7 @@ import { ValidadorForm } from './VailidadorForm.js';
 import { Endereco } from './Endereco.js';
 import { Trocas } from './Trocas.js';
 import { TrocaFotos } from './TrocaFotos.js';
+import { Chat } from './Chat.js';
 
 document.addEventListener('DOMContentLoaded', () => {     
     const formDinamico = new FormDinamico('formLogin', 'formCadastro', 'semCadastro', 'comCadastro');
@@ -10,10 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const endereco = new Endereco('cd_cep', 'sg_uf', 'nm_cidade', 'nm_bairro', 'nm_logradouro', 'erro-cep');
     const trocas = new Trocas('lista-livros', 'modalTroca');
     const trocaFotos = new TrocaFotos('input-foto');
+    const chat = new Chat();
 
     formDinamico?.init();
     validadorForm?.init();
     endereco?.init();
     trocas?.init();
     trocaFotos?.init();
+    chat?.init();
 });

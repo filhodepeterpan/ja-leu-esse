@@ -46,10 +46,6 @@ export class Trocas {
             card.addEventListener('click', () => this.selecionarOferta(card.dataset));
         });
 
-        this.btnNegociar.addEventListener('click', () => {
-            window.location.href = 'perfil.php';
-        });
-
         this.btnTrocar.addEventListener('click', () => this.resetarOferta());
     }
 
