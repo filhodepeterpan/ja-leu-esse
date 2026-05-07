@@ -32,7 +32,6 @@ $fotoPerfil = !empty($_SESSION['foto'])
 
             <?php if ($logado): ?>
                 <a href="../pages/trocas.php">Trocas</a>
-                <a href="../pages/perfil.php">Meu perfil</a>
             <?php endif; ?>
         </div>
 
@@ -52,7 +51,7 @@ $fotoPerfil = !empty($_SESSION['foto'])
                         </svg>
                     <?php endif; ?>
 
-                    <p><?= htmlspecialchars($_SESSION['nome']) ?></p>
+                    <a href="../pages/perfil.php">Meu perfil</a>
                     <input type="hidden" value="logout" name="logout">
                     <button type="submit" id="logout" class="session-button">Logout</button>
                 </form>

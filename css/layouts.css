@@ -40,6 +40,13 @@ header .logo svg {
     font-weight: bold;
 }
 
+.nav-usuario form{
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-weight: bold;
+}
+
 .session-button {
     background-color: var(--cor-destaque-dark);
     color: #FFFFFF;
