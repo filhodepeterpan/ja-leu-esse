@@ -7,7 +7,7 @@ if (!isset($_SESSION['logado']) || !$_SESSION['logado']) return;
 $protocolo  = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host       = $protocolo . '://' . $_SERVER['HTTP_HOST'];
 $raizFisica = realpath($_SERVER['DOCUMENT_ROOT']);
-$apiPath    = realpath(__DIR__ . '/../api/mensagens.php');
+$apiPath    = realpath(__DIR__ . '/../../api/mensagens.php');
 $apiUrl     = $host . str_replace('\\', '/', str_replace($raizFisica, '', $apiPath));
 ?>
 

@@ -10,7 +10,7 @@
     gap: 0.75rem;
 }
 
-/* ── Botão toggle (sempre visível) ─────────────────────────────────────────── */
+/* ── Botão toggle: some quando o painel está aberto ────────────────────────── */
 #chat-toggle {
     width: 52px;
     height: 52px;
@@ -22,7 +22,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     transition: background 0.2s, transform 0.1s;
     flex-shrink: 0;
 }
@@ -30,6 +30,11 @@
 #chat-toggle:hover {
     background: var(--cor-destaque-dark);
     transform: scale(1.05);
+}
+
+/* Esconde o botão quando o painel está aberto */
+#chat-widget.chat-aberto #chat-toggle {
+    display: none;
 }
 
 /* ── Painel principal ──────────────────────────────────────────────────────── */
@@ -42,7 +47,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
 .chat-oculto {
@@ -73,7 +78,9 @@
     transition: opacity 0.15s;
 }
 
-#chat-minimizar:hover { opacity: 1; }
+#chat-minimizar:hover {
+    opacity: 1;
+}
 
 /* ── Corpo (duas colunas) ──────────────────────────────────────────────────── */
 #chat-corpo {
@@ -162,6 +169,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    min-height: 40px;
 }
 
 #chat-mensagens-header img {
@@ -171,7 +179,7 @@
     object-fit: cover;
 }
 
-/* ── Contexto de troca (mostrado ao abrir chat via Negociar) ───────────────── */
+/* ── Contexto de troca ─────────────────────────────────────────────────────── */
 #chat-contexto-troca {
     display: flex;
     align-items: center;
@@ -191,8 +199,6 @@
     object-fit: cover;
     border-radius: 3px;
 }
-
-#chat-contexto-troca.chat-oculto { display: none !important; }
 
 /* ── Lista de mensagens ────────────────────────────────────────────────────── */
 #chat-mensagens-lista {
@@ -248,7 +254,11 @@
     padding: 0 0.2rem;
 }
 
-/* ── Área de input ─────────────────────────────────────────────────────────── */
+/* ── Área de input: oculta até ter uma conversa selecionada ────────────────── */
+#chat-mensagens-container.sem-conversa #chat-input-area {
+    display: none;
+}
+
 #chat-input-area {
     display: flex;
     align-items: center;
@@ -290,7 +300,9 @@
     flex-shrink: 0;
 }
 
-#chat-emoji-btn { font-size: 1.1rem; }
+#chat-emoji-btn {
+    font-size: 1.1rem;
+}
 
 #chat-enviar {
     background: var(--cor-primaria);
@@ -299,8 +311,13 @@
     height: 34px;
 }
 
-#chat-enviar:hover { background: var(--cor-destaque-dark); }
-#chat-emoji-btn:hover { background: var(--cor-destaque-light); }
+#chat-enviar:hover {
+    background: var(--cor-destaque-dark);
+}
+
+#chat-emoji-btn:hover {
+    background: var(--cor-destaque-light);
+}
 
 /* ── Seletor de emojis ─────────────────────────────────────────────────────── */
 #chat-emoji-picker {
@@ -314,7 +331,7 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 0.3rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
     z-index: 10;
 }
 
@@ -328,7 +345,9 @@
     user-select: none;
 }
 
-.chat-emoji:hover { background: var(--cor-destaque-light); }
+.chat-emoji:hover {
+    background: var(--cor-destaque-light);
+}
 
 /* ── Placeholder / estado vazio ────────────────────────────────────────────── */
 .chat-placeholder {
