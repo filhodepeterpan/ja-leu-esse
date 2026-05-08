@@ -1,28 +1,30 @@
 <?php
-    session_start();
+session_start();
 
-    require('../config/env.php');
-    require('../scripts/functions.php');
-    aplicaRestricao();
-    include('../scripts/stock_photo.php');
+require('../config/env.php');
+require('../scripts/functions.php');
+aplicaRestricao();
+include('../scripts/stock_photo.php');
 
-    // Livros do próprio usuário — usados no seletor de oferta
-    $meus_livros = array_values(
-        array_filter($stock_photos, fn($l) => $l['id_usuario'] === $_SESSION['id'])
-    );
+// Livros do próprio usuário — usados no seletor de oferta
+$meus_livros = array_values(
+    array_filter($stock_photos, fn($l) => $l['id_usuario'] === $_SESSION['id'])
+);
 
-    // Livros dos outros — exibidos na lista para desejar
-    $stock_photos = array_values(
-        array_filter($stock_photos, fn($l) => $l['id_usuario'] !== $_SESSION['id'])
-    );
+// Livros dos outros — exibidos na lista para desejar
+$stock_photos = array_values(
+    array_filter($stock_photos, fn($l) => $l['id_usuario'] !== $_SESSION['id'])
+);
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <?php include('../partials/head.php'); ?>
     <title>Já leu esse? | Trocas</title>
 </head>
+
 <body>
     <?php include('../layouts/header.php'); ?>
 
@@ -30,12 +32,10 @@
         <h1 class="trocas-titulo">Livros disponíveis para troca</h1>
 
         <div id="lista-livros" class="lista-livros">
-            <?php foreach($stock_photos as $index => $photo): ?>
-                <div class="card-livro"
-                     data-index="<?= $index ?>"
-                     data-nome="<?= htmlspecialchars($photo['nome']) ?>"
-                     data-url="<?= htmlspecialchars($photo['url']) ?>"
-                     data-alt="<?= htmlspecialchars($photo['alt']) ?>">
+            <?php foreach ($stock_photos as $index => $photo): ?>
+                <div class="card-livro" data-index="<?= $index ?>" data-id-usuario="<?= $photo['id_usuario'] ?>"
+                    data-nome="<?= htmlspecialchars($photo['nome']) ?>" data-url="<?= htmlspecialchars($photo['url']) ?>"
+                    data-alt="<?= htmlspecialchars($photo['alt']) ?>">
                     <img src="<?= $photo['url'] ?>" alt="<?= $photo['alt'] ?>">
                     <p class="card-livro-nome"><?= $photo['nome'] ?></p>
                 </div>
@@ -59,7 +59,7 @@
                         </div>
                         <img class="slot-img hidden" id="slotOfertaImg" src="" alt="">
                         <p class="slot-nome hidden" id="slotOfertaNome"></p>
-                        
+
                         <button class="btn-trocar hidden" id="btnTrocar">Escolher outro livro</button>
                     </div>
 
@@ -84,12 +84,9 @@
                         <button class="seletor-fechar" id="seletorFechar">&times;</button>
                     </div>
                     <div class="seletor-grid">
-                        <?php foreach($meus_livros as $index => $photo): ?>
-                            <div class="seletor-card"
-                                 data-index="<?= $index ?>"
-                                 data-nome="<?= $photo['nome'] ?>"
-                                 data-url="<?= $photo['url'] ?>"
-                                 data-alt="<?= $photo['alt'] ?>">
+                        <?php foreach ($meus_livros as $index => $photo): ?>
+                            <div class="seletor-card" data-index="<?= $index ?>" data-nome="<?= $photo['nome'] ?>"
+                                data-url="<?= $photo['url'] ?>" data-alt="<?= $photo['alt'] ?>">
                                 <img src="<?= $photo['url'] ?>" alt="<?= $photo['alt'] ?>" width="100px">
                                 <p><?= $photo['nome'] ?></p>
                             </div>
@@ -102,4 +99,5 @@
 
     <?php include('../layouts/footer.php'); ?>
 </body>
+
 </html>

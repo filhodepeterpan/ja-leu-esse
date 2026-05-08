@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 02/05/2026 às 21:14
+-- Tempo de geração: 07/05/2026 às 21:18
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -91,7 +91,9 @@ ALTER TABLE `livro`
 ALTER TABLE `mensagem`
   ADD PRIMARY KEY (`id_mensagem`),
   ADD KEY `fk_msg_remetente` (`id_remetente`),
-  ADD KEY `fk_msg_destinatario` (`id_destinatario`);
+  ADD KEY `fk_msg_destinatario` (`id_destinatario`),
+  ADD KEY `idx_conversa` (`id_remetente`,`id_destinatario`),
+  ADD KEY `idx_destinatario` (`id_destinatario`);
 
 --
 -- Índices de tabela `usuario`
