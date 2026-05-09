@@ -3,6 +3,7 @@ export class Chat {
         this.widget = document.getElementById('chat-widget');
         this.panel = document.getElementById('chat-panel');
         this.toggle = document.getElementById('chat-toggle');
+        this.badge = document.getElementById('chat-badge');
         this.minimizar = document.getElementById('chat-minimizar');
         this.conversasLista = document.getElementById('chat-conversas-lista');
         this.mensagensLista = document.getElementById('chat-mensagens-lista');
@@ -16,13 +17,13 @@ export class Chat {
         this.apiUrl = this.widget?.dataset.apiUrl ?? '';
         this.idDestinatario = null;
         this.pollingInterval = null;
+        this.badgeInterval = null;
         this._idDestinatarioTroca = null;
     }
 
     init() {
         if (!this.widget) return;
 
-        // ── Estado inicial: esconde área de input até ter conversa selecionada
         this.mensagensContainer?.classList.add('sem-conversa');
 
         // ── Toggle abrir/fechar
@@ -56,17 +57,15 @@ export class Chat {
             }
         });
 
-        // ── Integração com trocas ────────────────────────────────────────────
-        // CAPTURE PHASE: garante que capturamos o id antes do Trocas.js processar
+        // ── Integração com trocas (capture phase)
         document.querySelectorAll('.card-livro').forEach(card => {
             card.addEventListener('click', () => {
                 const id = parseInt(card.dataset.idUsuario);
                 if (id) this._idDestinatarioTroca = id;
-            }, true); // capture = true → roda antes do bubble do Trocas.js
+            }, true);
         });
 
-        // CAPTURE PHASE + stopImmediatePropagation: impede o Trocas.js de redirecionar
-        document.getElementById('btnNegociar')?.addEventListener('click', (e) => {
+        document.getElementById('btnNegociar')?.addEventListener('click', async (e) => {
             e.stopImmediatePropagation();
             e.preventDefault();
 
@@ -79,26 +78,55 @@ export class Chat {
 
             document.getElementById('modalTroca')?.classList.add('hidden');
 
+            // Salva o contexto da troca no banco — assim o outro usuário também vê a barra
+            await this.salvarContextoTroca(this._idDestinatarioTroca, { ofertaImg, ofertaNome, desejoImg, desejoNome });
+
             this.abrirChat();
-            this.selecionarConversa(
-                this._idDestinatarioTroca,
-                { ofertaImg, ofertaNome, desejoImg, desejoNome }
-            );
-        }, true); // capture = true
+            this.selecionarConversa(this._idDestinatarioTroca);
+        }, true);
+
+        // ── Badge
+        this.verificarNaoLidas();
+        this.iniciarBadgePolling();
     }
 
     // ── Painel ───────────────────────────────────────────────────────────────
 
     abrirChat() {
         this.panel.classList.remove('chat-oculto');
-        this.widget.classList.add('chat-aberto');   // esconde o botão toggle via CSS
+        this.widget.classList.add('chat-aberto');
+        this.pararBadgePolling();
+        this.ocultarBadge();
         this.carregarConversas();
     }
 
     fecharChat() {
         this.panel.classList.add('chat-oculto');
-        this.widget.classList.remove('chat-aberto'); // mostra o botão toggle novamente
+        this.widget.classList.remove('chat-aberto');
         this.pararPolling();
+        this.iniciarBadgePolling();
+    }
+
+    // ── Badge ────────────────────────────────────────────────────────────────
+
+    async verificarNaoLidas() {
+        try {
+            const res = await fetch(`${this.apiUrl}?action=nao_lidas`);
+            const data = await res.json();
+            data.tem ? this.exibirBadge() : this.ocultarBadge();
+        } catch { /* silencioso */ }
+    }
+
+    exibirBadge() { this.badge?.classList.remove('chat-oculto'); }
+    ocultarBadge() { this.badge?.classList.add('chat-oculto'); }
+
+    iniciarBadgePolling() {
+        this.badgeInterval = setInterval(() => this.verificarNaoLidas(), 5000);
+    }
+
+    pararBadgePolling() {
+        clearInterval(this.badgeInterval);
+        this.badgeInterval = null;
     }
 
     // ── Conversas ────────────────────────────────────────────────────────────
@@ -130,9 +158,7 @@ export class Chat {
 
             return `
                 <div class="chat-contato ${ativo}" data-id="${c.id_usuario}">
-                    <img class="chat-contato-foto"
-                         src="${foto}"
-                         alt="${this.escapeHtml(c.nm_usuario)}">
+                    <img class="chat-contato-foto" src="${foto}" alt="${this.escapeHtml(c.nm_usuario)}">
                     <div class="chat-contato-info">
                         <span class="chat-contato-nome">${this.escapeHtml(c.nm_usuario)}</span>
                         <span class="chat-contato-ultima">${this.escapeHtml(ultima)}</span>
@@ -149,24 +175,39 @@ export class Chat {
 
     // ── Mensagens ────────────────────────────────────────────────────────────
 
-    selecionarConversa(idUsuario, contextoTroca = null) {
+    selecionarConversa(idUsuario) {
         this.idDestinatario = idUsuario;
         this.pararPolling();
 
-        // Libera a área de input
         this.mensagensContainer?.classList.remove('sem-conversa');
 
-        // Marca contato ativo na lista
         document.querySelectorAll('.chat-contato').forEach(el => {
             el.classList.toggle('ativo', parseInt(el.dataset.id) === idUsuario);
         });
 
-        this.atualizarContextoTroca(contextoTroca);
+        this.marcarLidas(idUsuario);
         this.carregarMensagens();
         this.iniciarPolling();
         this.input.focus();
     }
 
+    // Salva o contexto da troca no banco como mensagem especial (tipo='troca')
+    async salvarContextoTroca(idDestinatario, ctx) {
+        try {
+            await fetch(`${this.apiUrl}?action=enviar`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    id_destinatario: idDestinatario,
+                    ds_mensagem: 'Proposta de troca',
+                    tipo: 'troca',
+                    ds_contexto: ctx,
+                }),
+            });
+        } catch { /* silencioso */ }
+    }
+
+    // Renderiza a barra de contexto de troca fixa acima das mensagens
     atualizarContextoTroca(ctx) {
         document.getElementById('chat-contexto-troca')?.remove();
         if (!ctx || (!ctx.ofertaNome && !ctx.desejoNome)) return;
@@ -174,14 +215,13 @@ export class Chat {
         const div = document.createElement('div');
         div.id = 'chat-contexto-troca';
         div.innerHTML = `
-            <img src="${this.escapeHtml(ctx.ofertaImg)}"
-                 alt="${this.escapeHtml(ctx.ofertaNome)}">
+            <img src="${this.escapeHtml(ctx.ofertaImg)}"  alt="${this.escapeHtml(ctx.ofertaNome)}">
             <span>${this.escapeHtml(ctx.ofertaNome)}</span>
             <span>⇄</span>
-            <img src="${this.escapeHtml(ctx.desejoImg)}"
-                 alt="${this.escapeHtml(ctx.desejoNome)}">
+            <img src="${this.escapeHtml(ctx.desejoImg)}"  alt="${this.escapeHtml(ctx.desejoNome)}">
             <span>${this.escapeHtml(ctx.desejoNome)}</span>`;
 
+        // Insere ANTES da lista de mensagens, logo abaixo do header da conversa
         this.mensagensLista.parentNode.insertBefore(div, this.mensagensLista);
     }
 
@@ -189,30 +229,41 @@ export class Chat {
         if (!this.idDestinatario) return;
 
         try {
-            const res = await fetch(
-                `${this.apiUrl}?action=mensagens&id_usuario=${this.idDestinatario}`
-            );
+            const res = await fetch(`${this.apiUrl}?action=mensagens&id_usuario=${this.idDestinatario}`);
             const data = await res.json();
             this.renderMensagens(data);
-        } catch {
-            /* falha silenciosa no polling */
-        }
+            this.marcarLidas(this.idDestinatario);
+        } catch { /* silencioso no polling */ }
     }
 
     renderMensagens(data) {
         if (!data || data.error) return;
 
-        const { meuId, usuario, mensagens } = data;
+        const { meuId, usuario, mensagens, contexto_troca } = data;
 
-        // Atualiza header com foto e nome do contato
+        // Header com foto, nome e botão de deletar
         if (usuario) {
             const foto = usuario.img_icone_perfil
                 ? `../../${usuario.img_icone_perfil}`
                 : '../../assets/img/avatar_padrao.png';
+
             this.mensagensHeader.innerHTML = `
                 <img src="${foto}" alt="${this.escapeHtml(usuario.nm_usuario)}">
-                <span id="chat-contato-nome">${this.escapeHtml(usuario.nm_usuario)}</span>`;
+                <span id="chat-contato-nome">${this.escapeHtml(usuario.nm_usuario)}</span>
+                <button id="chat-deletar-conversa" title="Deletar conversa" aria-label="Deletar conversa">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15" fill="currentColor">
+                        <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/>
+                        <line x1="10" y1="11" x2="10" y2="17" stroke="currentColor" stroke-width="2"/>
+                        <line x1="14" y1="11" x2="14" y2="17" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                </button>`;
+
+            document.getElementById('chat-deletar-conversa')
+                ?.addEventListener('click', () => this.deletarConversa());
         }
+
+        // Barra de contexto de troca — vem do banco, visível para os dois usuários
+        this.atualizarContextoTroca(contexto_troca);
 
         if (!mensagens || mensagens.length === 0) {
             this.mensagensLista.innerHTML =
@@ -232,9 +283,7 @@ export class Chat {
                 </div>`;
         }).join('');
 
-        if (atBottom) {
-            this.mensagensLista.scrollTop = this.mensagensLista.scrollHeight;
-        }
+        if (atBottom) this.mensagensLista.scrollTop = this.mensagensLista.scrollHeight;
     }
 
     async enviarMensagem() {
@@ -247,16 +296,35 @@ export class Chat {
             await fetch(`${this.apiUrl}?action=enviar`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    id_destinatario: this.idDestinatario,
-                    ds_mensagem: texto,
-                }),
+                body: JSON.stringify({ id_destinatario: this.idDestinatario, ds_mensagem: texto }),
             });
             await this.carregarMensagens();
             await this.carregarConversas();
         } catch {
-            this.input.value = texto; // devolve o texto em caso de erro
+            this.input.value = texto;
         }
+    }
+
+    async marcarLidas(idUsuario) {
+        try {
+            await fetch(`${this.apiUrl}?action=marcar_lidas&id_usuario=${idUsuario}`, { method: 'POST' });
+        } catch { /* silencioso */ }
+    }
+
+    async deletarConversa() {
+        if (!confirm('Deletar esta conversa? As mensagens serão apagadas para os dois lados.')) return;
+
+        try {
+            await fetch(`${this.apiUrl}?action=deletar&id_usuario=${this.idDestinatario}`, { method: 'POST' });
+        } catch { /* silencioso */ }
+
+        this.pararPolling();
+        this.idDestinatario = null;
+        this.mensagensContainer.classList.add('sem-conversa');
+        this.mensagensHeader.innerHTML = '<span id="chat-contato-nome">Selecione uma conversa</span>';
+        this.mensagensLista.innerHTML = '<p class="chat-placeholder">Selecione uma conversa para começar.</p>';
+        document.getElementById('chat-contexto-troca')?.remove();
+        await this.carregarConversas();
     }
 
     // ── Polling ──────────────────────────────────────────────────────────────
@@ -275,10 +343,8 @@ export class Chat {
     escapeHtml(str) {
         if (!str) return '';
         return String(str)
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
     truncar(str, max) {

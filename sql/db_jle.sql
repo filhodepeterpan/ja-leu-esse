@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 07/05/2026 às 21:18
+-- Tempo de geração: 09/05/2026 às 04:05
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -47,7 +47,10 @@ CREATE TABLE `mensagem` (
   `id_remetente` int(11) NOT NULL,
   `id_destinatario` int(11) NOT NULL,
   `ds_mensagem` text NOT NULL,
-  `dt_envio` datetime DEFAULT current_timestamp()
+  `dt_envio` datetime DEFAULT current_timestamp(),
+  `lido` tinyint(1) NOT NULL DEFAULT 0,
+  `tipo` varchar(10) NOT NULL DEFAULT 'normal',
+  `ds_contexto` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -93,7 +96,8 @@ ALTER TABLE `mensagem`
   ADD KEY `fk_msg_remetente` (`id_remetente`),
   ADD KEY `fk_msg_destinatario` (`id_destinatario`),
   ADD KEY `idx_conversa` (`id_remetente`,`id_destinatario`),
-  ADD KEY `idx_destinatario` (`id_destinatario`);
+  ADD KEY `idx_destinatario` (`id_destinatario`),
+  ADD KEY `idx_nao_lidas` (`id_destinatario`,`lido`);
 
 --
 -- Índices de tabela `usuario`
