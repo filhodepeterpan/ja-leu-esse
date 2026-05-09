@@ -1,5 +1,6 @@
 <?php
-if (!verificaLogin()) return;
+if (!verificaLogin())
+    return;
 
 $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
 $host = $protocolo . '://' . $_SERVER['HTTP_HOST'];
