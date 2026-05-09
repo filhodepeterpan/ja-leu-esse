@@ -9,14 +9,13 @@ if ((isset($_GET['id_perfil'])) && ($_SESSION['id'] !== $_GET['id_perfil'])) {
     $perfilUsuarioLogado = false;
     $usuario = buscarUsuario($_GET['id_perfil']);
     $livros = buscarLivrosDoUsuario($_GET['id_perfil']);
+    $fotoPerfilOutroUsuario = $usuario['img_icone_perfil'] ? "../../{$usuario['img_icone_perfil']}" : null;
 }
 else {
     $perfilUsuarioLogado = true;
     $usuario = buscarUsuario($_SESSION['id']);
     $livros = buscarLivrosDoUsuario($_SESSION['id']);
 }
-
-$fotoPerfil = $usuario['img_icone_perfil'] ? "../../{$usuario['img_icone_perfil']}" : null;
 ?>
 
 <!DOCTYPE html>
@@ -44,13 +43,24 @@ $fotoPerfil = $usuario['img_icone_perfil'] ? "../../{$usuario['img_icone_perfil'
 
             <!-- Foto -->
             <div class="foto-perfil">
-                <?php if ($fotoPerfil): ?>
-                    <img src="<?= htmlspecialchars($fotoPerfil) ?>" alt="Foto de perfil">
+                <?php if (!$perfilUsuarioLogado): ?>
+                    <?php if ($fotoPerfilOutroUsuario): ?>
+                        <img src="<?= htmlspecialchars($fotoPerfilOutroUsuario) ?>" alt="Foto de perfil">
+                    <?php else: ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" fill="#aaa">
+                            <circle cx="40" cy="30" r="16" />
+                            <path d="M10 70 Q10 50 40 50 Q70 50 70 70Z" />
+                        </svg>
+                    <?php endif; ?>
                 <?php else: ?>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" fill="#aaa">
-                        <circle cx="40" cy="30" r="16" />
-                        <path d="M10 70 Q10 50 40 50 Q70 50 70 70Z" />
-                    </svg>
+                    <?php if ($fotoPerfil): ?>         
+                        <img src="<?= htmlspecialchars($fotoPerfil) ?>" alt="Foto de perfil">
+                    <?php else: ?>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" fill="#aaa">
+                            <circle cx="40" cy="30" r="16" />
+                            <path d="M10 70 Q10 50 40 50 Q70 50 70 70Z" />
+                        </svg>
+                    <?php endif; ?>
                 <?php endif; ?>
             </div>
 

@@ -33,11 +33,33 @@ $stock_photos = array_values(
 
         <div id="lista-livros" class="lista-livros">
             <?php foreach ($stock_photos as $index => $photo): ?>
-                <div class="card-livro" data-index="<?= $index ?>" data-id-usuario="<?= $photo['id_usuario'] ?>"
-                    data-nome="<?= htmlspecialchars($photo['nome']) ?>" data-url="<?= htmlspecialchars($photo['url']) ?>"
-                    data-alt="<?= htmlspecialchars($photo['alt']) ?>">
-                    <img src="<?= $photo['url'] ?>" alt="<?= $photo['alt'] ?>">
-                    <p class="card-livro-nome"><?= $photo['nome'] ?></p>
+                <div class="card-livro-container">
+                    <a href="perfil.php?id_perfil=<?= $photo['id_usuario'] ?>"
+                        style="text-decoration: none; color: inherit;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+                            <?php if ($photo['foto_dono']): ?>
+                                <img src="<?= $photo['foto_dono'] ?>"
+                                    style="width: 25px; height: 25px; border-radius: 50%; object-fit: cover;">
+                            <?php else: ?>
+                                <div
+                                    style="width: 25px; height: 25px; border-radius: 50%; background: #eee; display: flex; align-items: center; justify-content: center;">
+                                    <svg viewBox="0 0 80 80" width="14" fill="#888">
+                                        <circle cx="40" cy="30" r="16" />
+                                        <path d="M10 70 Q10 50 40 50 Q70 50 70 70Z" />
+                                    </svg>
+                                </div>
+                            <?php endif; ?>
+                            <span style="font-size: 0.85em;"><?= htmlspecialchars($photo['nm_usuario']) ?></span>
+                        </div>
+                    </a>
+
+                    <div class="card-livro" data-index="<?= $index ?>" data-id-usuario="<?= $photo['id_usuario'] ?>"
+                        data-nome="<?= htmlspecialchars($photo['nome']) ?>"
+                        data-url="<?= htmlspecialchars($photo['url']) ?>" data-alt="<?= htmlspecialchars($photo['alt']) ?>">
+
+                        <img src="<?= $photo['url'] ?>" alt="<?= htmlspecialchars($photo['alt']) ?>">
+                        <p class="card-livro-nome"><?= htmlspecialchars($photo['nome']) ?></p>
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>

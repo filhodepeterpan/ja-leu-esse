@@ -11,10 +11,7 @@ if (isset($_POST['logout'])) {
     exit();
 }
 
-// Caminho da foto relativo às páginas/layouts (ambos ficam 2 níveis abaixo da raiz)
-$fotoPerfil = !empty($_SESSION['foto'])
-    ? "../../{$_SESSION['foto']}"
-    : null;
+$fotoPerfil = !empty($_SESSION['foto']) ? "../../{$_SESSION['foto']}" : null;
 ?>
 
 <header>
