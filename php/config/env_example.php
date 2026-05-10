@@ -1,17 +1,18 @@
 <?php
-    // Credenciais do banco  
+    // Usando API local para testes
+    
     $DATABASE = [
-        'host' => '',
-        'dbname' => '',
-        'username' => '',
+        'host' => 'localhost',
+        'dbname' => 'db_jle',
+        'username' => 'root',
         'password' => '',
     ];
 
     $API_CRUD = [
-        'url' => '', // API responsável pelo CRUD
+        'url' => 'http://localhost/sistema/ja-leu-esse/api/crud.php',
     ];
 
     $API_CHAT = [
-        'url' => '', // API responsável pelo chat
+        'url' => 'http://localhost/sistema/ja-leu-esse/api/mensagens.php',
     ];
 ?>

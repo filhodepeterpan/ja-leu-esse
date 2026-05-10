@@ -5,6 +5,4 @@ env.php
 *.log
 *.cache
 
-api/
-
 users_profile_images/
