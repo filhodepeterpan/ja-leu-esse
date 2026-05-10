@@ -1,4 +1,5 @@
 <?php
+    // Credenciais do banco  
     $DATABASE = [
         'host' => '',
         'dbname' => '',
@@ -7,6 +8,10 @@
     ];
 
     $API_CRUD = [
-        'url' => '',
+        'url' => '', // API responsável pelo CRUD
+    ];
+
+    $API_CHAT = [
+        'url' => '', // API responsável pelo chat
     ];
 ?>

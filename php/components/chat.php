@@ -1,12 +1,7 @@
 <?php
-if (!verificaLogin())
-    return;
+if (!verificaLogin()) return;
 
-$protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
-$host = $protocolo . '://' . $_SERVER['HTTP_HOST'];
-$raizFisica = realpath($_SERVER['DOCUMENT_ROOT']);
-$apiPath = realpath(__DIR__ . '/../../api/mensagens.php');
-$apiUrl = $host . str_replace('\\', '/', str_replace($raizFisica, '', $apiPath));
+$apiUrl = $API_CHAT['url'];
 ?>
 
 <div id="chat-widget" data-api-url="<?= htmlspecialchars($apiUrl) ?>">
