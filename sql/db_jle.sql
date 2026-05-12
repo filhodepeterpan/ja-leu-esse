@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 12/05/2026 às 22:30
+-- Tempo de geração: 12/05/2026 às 23:02
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -137,14 +137,14 @@ ALTER TABLE `usuario`
 -- Restrições para tabelas `livro`
 --
 ALTER TABLE `livro`
-  ADD CONSTRAINT `fk_livro_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`);
+  ADD CONSTRAINT `fk_livro_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE;
 
 --
 -- Restrições para tabelas `mensagem`
 --
 ALTER TABLE `mensagem`
-  ADD CONSTRAINT `fk_msg_destinatario` FOREIGN KEY (`id_destinatario`) REFERENCES `usuario` (`id_usuario`),
-  ADD CONSTRAINT `fk_msg_remetente` FOREIGN KEY (`id_remetente`) REFERENCES `usuario` (`id_usuario`);
+  ADD CONSTRAINT `fk_msg_destinatario` FOREIGN KEY (`id_destinatario`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_msg_remetente` FOREIGN KEY (`id_remetente`) REFERENCES `usuario` (`id_usuario`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

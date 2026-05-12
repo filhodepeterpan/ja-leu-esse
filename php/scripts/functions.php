@@ -23,7 +23,7 @@ function chamarAPI(string $url, string $method = 'GET', array $dados = []): arra
         'http' => [
             'method' => $method,
             'header' => 'Content-Type: application/json',
-            'content' => in_array($method, ['POST', 'PUT']) ? json_encode($dados) : null,
+            'content' => in_array($method, ['POST', 'PUT']) ? json_encode($dados) : '',
             'ignore_errors' => true,
         ],
     ];

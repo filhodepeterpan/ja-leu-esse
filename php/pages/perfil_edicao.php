@@ -53,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['nome'] = $dados['nm_usuario'];
                 $_SESSION['user'] = $dados['nm_email'];
                 $mensagem = ['texto' => 'Perfil atualizado com sucesso!', 'tipo' => 'sucesso'];
+                header("Location: perfil.php");
             } else {
                 $mensagem = ['texto' => 'Erro ao salvar. Tente novamente.', 'tipo' => 'erro'];
             }
