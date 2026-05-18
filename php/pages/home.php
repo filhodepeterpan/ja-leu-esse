@@ -1,67 +1,74 @@
 <?php
-    session_start();
-    
-    require('../config/env.php');
-    require('../scripts/functions.php');
-    include('../scripts/stock_photo.php');
+session_start();
 
-    $logado = verificaLogin();
+require('../config/env.php');
+require('../scripts/functions.php');
+aplicaRestricao();
 
+
+//Busca todos os livros no banco
+$todosOsLivros = buscarTodosLivros(); 
+
+// Livros do próprio usuário (usados para oferecer na troca)
+$meus_livros = array_values(
+    array_filter($todosOsLivros, fn($l) => (int)$l['id_usuario'] === (int)$_SESSION['id'])
+);
+
+//Livros dos outros (Novidades) - Filtramos para não ver o próprio livro
+$livrosParaTroca = array_values(
+    array_filter($todosOsLivros, fn($l) => (int)$l['id_usuario'] !== (int)$_SESSION['id'])
+);
+
+// Pegamos apenas os 15 mais recentes para exibir na tela
+$stock_photos = array_slice(array_reverse($livrosParaTroca), 0, 15);
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <?php include('../partials/head.php'); ?>
-    <title>Já leu esse?</title>
+    <title>Já leu esse? | Trocas</title>
 </head>
+
 <body>
     <?php include('../layouts/header.php'); ?>
 
-    <main id="main-home" class="container-fluid px-4 py-4">
-        <div class="row g-5">
+ <main>
+    <h3 class="c-titulo" style="margin-bottom: 16px;">Novidades para você</h3>
+    
+    <div class="c-container" style="position: relative;">
+        
+                <button class="btn-seta-esquerda">
+                    <img src="/sistema/ja-leu-esse/assets/img/setas/btn_seta_esquerda.svg" alt="Voltar">
+                </button>
 
-            <div class="col-12 col-md-3 d-flex align-items-center">
-                <div id="meuCarrossel" class="carousel slide w-100" data-bs-ride="carousel">
+                <button class="btn-seta-direita">
+                    <img src="/sistema/ja-leu-esse/assets/img/setas/bnt_seta_direita.svg" alt="Avançar">
+                </button>
+            <div class="c-grupo">
 
-                    <!-- Indicadores -->
-                    <div class="carousel-indicators">
-                        <?php foreach($stock_photos as $index => $photo): ?>
-                            <button type="button" data-bs-target="#meuCarrossel" data-bs-slide-to="<?=$index?>" class="<?=$photo['status']?>"></button>
-                        <?php endforeach; ?>
-                    </div>
+           <?php foreach ($stock_photos as $livro): ?>
+                <div class="c-card" style="background: #271919;">
+                    <img src="/sistema/ja-leu-esse/assets/img/examples/<?php echo $livro['img_livro']; ?>" class="c-capa">
+                    
+                    <div class="c-info">
+                    <h3><?php echo $livro['nm_livro']; ?></h3>
+                    </div> 
+                </div> <?php endforeach; ?>
 
-                    <div class="carousel-inner rounded">
-                        <?php foreach($stock_photos as $photo): ?>
-                            <div class="carousel-item <?=$photo['status']?>">
-                                <img src="<?=$photo['url']?>" class="d-block w-100" alt="<?=$photo['alt']?>" height="600">
-                            </div>
-                        <?php endforeach; ?>
-                    </div>
 
-                    <button class="carousel-control-prev" type="button" data-bs-target="#meuCarrossel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon"></span>
-                    </button>
+        </div> 
+    </div> 
+</main>
 
-                    <button class="carousel-control-next" type="button" data-bs-target="#meuCarrossel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon"></span>
-                    </button>
 
-                </div>
-            </div>
 
-            <div class="sessao-de-noticias col-12 col-md-9">
-                <h1>teste</h1>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt repellendus, et laborum adipisci maiores corrupti tempore neque ratione totam sit fugiat. Nemo sint non nisi illo, corrupti perferendis assumenda veritatis!
-                    Dolor sint error labore. Rerum dolores saepe hic velit porro asperiores necessitatibus consequuntur dolorum, quod accusantium cupiditate dolor vero temporibus quos magni dignissimos? Commodi, adipisci? Maiores dolores dolorem earum sapiente!
-                    Cum facilis laudantium consequuntur odit quod quam exercitationem perspiciatis, aliquid ab modi voluptate asperiores veniam aliquam porro quaerat iste sapiente assumenda? Itaque aliquam blanditiis enim optio dolorum perferendis in unde.
-                </p>
-            </div>
-
-        </div>
-    </main>
 
     <?php include('../layouts/footer.php'); ?>
 </body>
+
 </html>

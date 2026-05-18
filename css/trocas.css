@@ -3,6 +3,9 @@
     display: none !important;
 }
 
+/* titulo do carrossel */
+
+
 /* ───────────── Lista de livros ───────────── */
 .trocas-titulo {
     color: var(--cor-destaque-dark);
@@ -293,3 +296,136 @@
 .btn-trocar:hover {
     opacity: 0.8;
 }
+
+
+
+/*─────────────  Carrossel ───────────── */
+
+
+.c-titulo {
+    text-align: center;
+    width: 100%;
+}
+
+.c-container {
+    position: relative;
+    max-width: 96%;
+    margin: 0 auto;
+    padding: 16px 0;
+    overflow: visible;
+}
+.c-grupo {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 0 32px;
+    scrollbar-width: none;
+}
+
+.c-grupo::-webkit-scrollbar {
+    display: none;
+}
+
+.c-card {
+    flex: 0 0 150px;
+    height: 225px;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #000;
+    scroll-snap-align: start;
+}
+
+.c-capa {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.c-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.c-info h3 {
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 8px;
+}
+
+
+/*───────  botão redonto + ──────── */
+.btn-cadd {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: #eee;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+.btn-cadd svg {
+    width: 14px;
+    fill: #888;
+}
+
+.btn-cadd:hover {
+    background-color: #fff;
+    transform: scale(1.1);
+    transition: 0.2s;
+}
+
+
+
+/*───────  botões Mover < > ──────── */
+
+
+.btn-seta-esquerda, .btn-seta-direita {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    
+    background: transparent; 
+    border: none;
+    width: 10px; 
+    height: 10px;
+    cursor: pointer;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+
+.btn-seta-esquerda { 
+    left: -32px; }
+.btn-seta-direita   { 
+    right: -32px; }
+
+.btn-seta-esquerda:hover, .btn-seta-direita:hover {
+    transform: translateY(-50%) scale(1.1);
+}
+
