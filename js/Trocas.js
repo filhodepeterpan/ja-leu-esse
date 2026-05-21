@@ -31,28 +31,28 @@ export class Trocas {
         this.abrirModal(btn.dataset);
     });
 });
-        this.btnFechar.addEventListener('click', () => this.fecharModal());
+        this.btnFechar?.addEventListener('click', () => this.fecharModal());
 
-        this.modal.addEventListener('click', (e) => {
+        this.modal?.addEventListener('click', (e) => {
             if (e.target === this.modal) this.fecharModal();
         });
 
-        this.btnAdicionar.addEventListener('click', (e) => {
+        this.btnAdicionar?.addEventListener('click', (e) => {
             e.stopPropagation();
             this.abrirSeletor();
         });
 
-        this.seletorFechar.addEventListener('click', () => this.fecharSeletor());
+        this.seletorFechar?.addEventListener('click', () => this.fecharSeletor());
 
-        this.seletor.querySelectorAll('.seletor-card').forEach(card => {
+        this.seletor?.querySelectorAll('.seletor-card').forEach(card => {
             card.addEventListener('click', () => this.selecionarOferta(card.dataset));
         });
 
-        this.btnTrocar.addEventListener('click', () => this.resetarOferta());
+        this.btnTrocar?.addEventListener('click', () => this.resetarOferta());
 
 
         // ─── NOVO: Evento adicionado para o botão de confirmação ───
-        this.btnNegociar.addEventListener('click', () => this.enviarNegociacao());
+        this.btnNegociar?.addEventListener('click', () => this.enviarNegociacao());
     }
 
     
