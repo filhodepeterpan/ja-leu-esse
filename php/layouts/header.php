@@ -24,13 +24,13 @@ $fotoPerfil = !empty($_SESSION['foto']) ? "../../{$_SESSION['foto']}" : null;
             </a>
         </div>
 
-        <div class="nav-links">
+       <!-- <div class="nav-links">
             <a href="../pages/home.php">Início</a>
 
-            <?php if ($logado): ?>
+            <?php // if ($logado): ?>
                 <a href="../pages/trocas.php">Trocas</a>
-            <?php endif; ?>
-        </div>
+            <?php //endif; ?>
+        </div> -->
 
         <div class="nav-usuario">
             <?php if ($logado): ?>

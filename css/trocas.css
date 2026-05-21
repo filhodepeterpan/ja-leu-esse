@@ -95,7 +95,7 @@
     font-size: 1.25rem;
 }
 
-/* ───────────── Slots dos livros ───────────── */
+/* ───────────── Slots dos livros do Modal ───────────── */
 .modal-livros {
     display: flex;
     align-items: center;
@@ -298,11 +298,11 @@
 }
 
 
-
+/*────────────────────────────────────── */
 /*─────────────  Carrossel ───────────── */
 
 
-.c-titulo {
+.c-titulo { 
     text-align: center;
     width: 100%;
 }
@@ -334,7 +334,7 @@
     position: relative;
     border-radius: 16px;
     overflow: hidden;
-    background-color: #000;
+    background-color: #271919;
     scroll-snap-align: start;
 }
 
@@ -385,21 +385,8 @@
     padding: 0;
 }
 
-.btn-cadd svg {
-    width: 14px;
-    fill: #888;
-}
-
-.btn-cadd:hover {
-    background-color: #fff;
-    transform: scale(1.1);
-    transition: 0.2s;
-}
-
-
 
 /*───────  botões Mover < > ──────── */
-
 
 .btn-seta-esquerda, .btn-seta-direita {
     position: absolute;
@@ -429,3 +416,65 @@
     transform: translateY(-50%) scale(1.1);
 }
 
+/*---------FEED--------------------*/
+
+
+
+.feed-livros {
+    width: 100%;
+    margin: 0 auto;
+     position: relative;
+     
+}
+.feed-card {
+    width: 224px;
+    height: auto;
+    margin-bottom: 32px;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #271919;
+    position: relative; 
+}
+
+.feed-capa {
+    width: 100%;
+    min-height: 200px;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+.feed-info {
+    position: absolute; 
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(0deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+    padding: 16px 8px 8px 16px;
+    box-sizing: border-box;
+}
+
+.feed-info h3 {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.feed-rodape {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.feed-rodape a {
+    font-size: 0.8em;
+    color: #aaa;
+    text-decoration: none;
+}
+
+.feed-rodape a:hover {
+    color: #fff;
+}
