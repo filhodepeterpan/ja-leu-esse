@@ -25,12 +25,12 @@ export class Trocas {
     init() {
         if (!this.lista) return;
 
-      document.querySelectorAll('.btn-propor-troca').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.abrirModal(btn.dataset);
-    });
-});
+        document.querySelectorAll('.btn-propor-troca').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.abrirModal(btn.dataset);
+            });
+        });
         this.btnFechar?.addEventListener('click', () => this.fecharModal());
 
         this.modal?.addEventListener('click', (e) => {
@@ -55,7 +55,7 @@ export class Trocas {
         this.btnNegociar?.addEventListener('click', () => this.enviarNegociacao());
     }
 
-    
+
     abrirModal(dataset) {
         //this.livroDesejado = { nome: dataset.nome, url: dataset.url, alt: dataset.alt };
         this.livroDesejado = { id: dataset.id, nome: dataset.nome, url: dataset.url, alt: dataset.alt };
@@ -88,7 +88,7 @@ export class Trocas {
         this.livroOferta = { id: dataset.id, nome: dataset.nome, url: dataset.url, alt: dataset.alt };
 
 
-        
+
         this.slotOfertaImg.src = this.livroOferta.url;
         this.slotOfertaImg.alt = this.livroOferta.alt;
         this.slotOfertaNome.textContent = this.livroOferta.nome;
