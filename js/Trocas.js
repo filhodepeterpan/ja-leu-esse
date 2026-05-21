@@ -25,7 +25,7 @@ export class Trocas {
     init() {
         if (!this.lista) return;
 
-      document.querySelectorAll('.feed-livros, .btn-propor-troca').forEach(btn => {
+      document.querySelectorAll('.btn-propor-troca').forEach(btn => {
     btn.addEventListener('click', (e) => {
         e.stopPropagation();
         this.abrirModal(btn.dataset);
