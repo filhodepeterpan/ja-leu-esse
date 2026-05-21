@@ -1,0 +1,60 @@
+/*======== CONTAINER DE LOGIN ========*/
+.login-action-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 64px; 
+}
+
+/*======== BOTÃO DE LOGIN ========*/
+.btn-login-grande {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--cor-primaria);
+    color: var(--cor-bg); 
+    text-decoration: none;
+    font-family: var(--fonte-padrao);
+    font-size: 24px;       
+    font-weight: 500;
+    width: 200px;         
+    height: 64px;          
+    border-radius: 16px;   
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-login-grande:hover {
+    background-color: var(--cor-destaque-dark);
+    transform: scale(1.05);
+}
+
+/*======== SEÇÃO QUEM SOMOS ========*/
+.quem-somos-container {
+    padding: 32px 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.quem-somos-conteudo {
+    max-width: 800px;
+    text-align: center;
+}
+
+.quem-somos-conteudo h2 {
+    color: var(--cor-texto-h2);
+    font-family: 'Roboto', sans-serif;
+    font-size: 40px;     
+    font-weight: 300;     
+    margin-bottom: 24px;  
+}
+
+.quem-somos-conteudo p {
+    color: var(--cor-fonte-padrao);
+    font-family: var(--fonte-padrao);
+    font-size: 16px;     
+    line-height: 1.5;
+    margin-bottom: 16px; 
+}

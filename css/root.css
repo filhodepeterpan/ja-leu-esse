@@ -1,29 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+
 
 @font-face {
     font-family: "";
     src: url();
 }
 
+
+
 :root {
   --espacamento-padrao-tela: 0.5rem 2rem;
-
   --fonte-padrao: "Roboto", sans-serif;
-  --cor-fonte-padrao: #2C2820;
 
-  --cor-bg: #FAF6EE;
-  --cor-bg-surface: #FECDAE;
-
-  --cor-primaria: #D5742D;
-  --cor-destaque: #E0A740;
+  /* OS NOMES SÃO UMA SUGESTÃO DE USO, NÃO REGRA
   
-  --cor-destaque-light: #FBCB83;
-  --cor-destaque-dark: #D5742D;
-  --cor-borda: #E19A5D;
+  /* fundos — família pergaminho */
+  --cor-bg:         #F5EDD8;  /* página de livro envelhecida */
+  --cor-bg-surface: #EDE0C4;  /* linho — seções alternadas, cards */
+  --cor-borda:      #DEC89A;  /* borda suave, quase tom-sobre-tom */
 
-  --bs-link-color-rgb:#D5742D;
+  /* ações */
+  --cor-primaria:   #D5742D;  /* laranja — troca, movimento */
+  --cor-secundaria: #E0A740;  /* âmbar — destaque, badge */
+
+  /* textos — 4 níveis */
+  --cor-texto-h1:   #2C1A0E;  /* couro escuro — títulos principais */
+  --cor-texto-h2:   #5C3A1E;  /* mogno — subtítulos */
+  --cor-texto-h3:   #8C5A2E;  /* caramelo — h3, rótulos */
+  --cor-fonte-padrao: #3A2A1A;  /* marrom leitura — corpo */
+  --cor-texto-muted:#7A5C40;  /* sépia — metadados, captions */
+
+  /* estados funcionais */
+  --cor-erro:       #C0390F;  /* vermelho-tijolo — distinto do laranja */
+  --cor-sucesso:    #E0A740;  /* reusa o âmbar — positivo/confirmação */
 
 
-  --cor-erro: #D5742D;
-  --cor-sucesso: #E0A740;
+  /* Botão de sair */
+   --bs-link-color-rgb:#D5742D;
+
+     --cor-destaque: #E0A740;
+    --cor-destaque-light: #FBCB83;
+    --cor-destaque-dark: #D5742D;
+
 }

@@ -4,6 +4,7 @@ import { Endereco } from './Endereco.js';
 import { Trocas } from './Trocas.js';
 import { TrocaFotos } from './TrocaFotos.js';
 import { Chat } from './Chat.js';
+import { MoverCarrossel } from './MoverCarrossel.js';
 
 document.addEventListener('DOMContentLoaded', () => {     
     const formDinamico = new FormDinamico('formLogin', 'formCadastro', 'semCadastro', 'comCadastro');
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const trocas = new Trocas('lista-livros', 'modalTroca');
     const trocaFotos = new TrocaFotos('input-foto');
     const chat = new Chat();
+    const moverCarrossel = new MoverCarrossel();
 
     formDinamico?.init();
     validadorForm?.init();
@@ -19,4 +21,5 @@ document.addEventListener('DOMContentLoaded', () => {
     trocas?.init();
     trocaFotos?.init();
     chat?.init();
+    moverCarrossel?.init();
 });

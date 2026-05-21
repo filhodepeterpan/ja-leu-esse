@@ -25,32 +25,42 @@ export class Trocas {
     init() {
         if (!this.lista) return;
 
-        this.lista.querySelectorAll('.card-livro').forEach(card => {
-            card.addEventListener('click', () => this.abrirModal(card.dataset));
-        });
+      document.querySelectorAll('.btn-propor-troca').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.abrirModal(btn.dataset);
+    });
+});
+        this.btnFechar?.addEventListener('click', () => this.fecharModal());
 
-        this.btnFechar.addEventListener('click', () => this.fecharModal());
-
-        this.modal.addEventListener('click', (e) => {
+        this.modal?.addEventListener('click', (e) => {
             if (e.target === this.modal) this.fecharModal();
         });
 
-        this.btnAdicionar.addEventListener('click', (e) => {
+        this.btnAdicionar?.addEventListener('click', (e) => {
             e.stopPropagation();
             this.abrirSeletor();
         });
 
-        this.seletorFechar.addEventListener('click', () => this.fecharSeletor());
+        this.seletorFechar?.addEventListener('click', () => this.fecharSeletor());
 
-        this.seletor.querySelectorAll('.seletor-card').forEach(card => {
+        this.seletor?.querySelectorAll('.seletor-card').forEach(card => {
             card.addEventListener('click', () => this.selecionarOferta(card.dataset));
         });
 
-        this.btnTrocar.addEventListener('click', () => this.resetarOferta());
+        this.btnTrocar?.addEventListener('click', () => this.resetarOferta());
+
+
+        // ─── NOVO: Evento adicionado para o botão de confirmação ───
+        this.btnNegociar?.addEventListener('click', () => this.enviarNegociacao());
     }
 
+    
     abrirModal(dataset) {
-        this.livroDesejado = { nome: dataset.nome, url: dataset.url, alt: dataset.alt };
+        //this.livroDesejado = { nome: dataset.nome, url: dataset.url, alt: dataset.alt };
+        this.livroDesejado = { id: dataset.id, nome: dataset.nome, url: dataset.url, alt: dataset.alt };
+
+
 
         this.slotDesejoImg.src = this.livroDesejado.url;
         this.slotDesejoImg.alt = this.livroDesejado.alt;
@@ -74,8 +84,11 @@ export class Trocas {
     }
 
     selecionarOferta(dataset) {
-        this.livroOferta = { nome: dataset.nome, url: dataset.url, alt: dataset.alt };
+        //this.livroOferta = { nome: dataset.nome, url: dataset.url, alt: dataset.alt };
+        this.livroOferta = { id: dataset.id, nome: dataset.nome, url: dataset.url, alt: dataset.alt };
 
+
+        
         this.slotOfertaImg.src = this.livroOferta.url;
         this.slotOfertaImg.alt = this.livroOferta.alt;
         this.slotOfertaNome.textContent = this.livroOferta.nome;

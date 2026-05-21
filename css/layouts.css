@@ -71,5 +71,6 @@ header .logo svg {
 footer {
     background-color: var(--cor-bg-header);
     text-align: center;
+    margin-top: auto;
     padding: var(--espacamento-padrao-tela);
 }

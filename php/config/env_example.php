@@ -1,6 +1,4 @@
 <?php
-    // Usando API local para testes
-    
     $DATABASE = [
         'host' => 'localhost',
         'dbname' => 'db_jle',

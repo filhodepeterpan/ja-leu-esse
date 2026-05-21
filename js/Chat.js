@@ -58,7 +58,7 @@ export class Chat {
         });
 
         // ── Integração com trocas (capture phase)
-        document.querySelectorAll('.card-livro').forEach(card => {
+        document.querySelectorAll('.btn-propor-troca').forEach(card => {
             card.addEventListener('click', () => {
                 const id = parseInt(card.dataset.idUsuario);
                 if (id) this._idDestinatarioTroca = id;

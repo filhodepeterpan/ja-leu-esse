@@ -1,40 +1,51 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html{
+html {
     scroll-behavior: smooth;
 }
 
-body{
+
+h3 {
+    text-align: left;
+    width: 100%;
+    font-family: "Satisfy", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 32px;
+    color: var(--cor-texto-h3);
+}
+
+
+body {
     height: 100vh;
     margin: 0;
     padding: 0;
     font-family: var(--fonte-padrao);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     background-color: var(--cor-bg);
 }
 
 
 
-a{
+a {
     text-decoration: none;
     color: inherit;
 }
 
-main{
+main {
     padding: var(--espacamento-padrao-tela)
 }
 
-input{
+input {
     outline: none;
 }
 
-.radio{
+.radio {
     display: flex;
     align-items: center;
     gap: 0.5rem;
