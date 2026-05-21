@@ -17,20 +17,18 @@ $fotoPerfil = !empty($_SESSION['foto']) ? "../../{$_SESSION['foto']}" : null;
 <header>
     <nav>
         <div class="logo">
-          <a href="../../index.php">
+            <a href="../../index.php">
                 <?php include('../../assets/img/logo.svg'); ?>
-</a>
+            </a>
             <a href="../../index.php">
             </a>
         </div>
 
-       <!-- <div class="nav-links">
-            <a href="../pages/home.php">Início</a>
-
-            <?php // if ($logado): ?>
+        <div class="nav-links">
+            <?php if ($logado): ?>
                 <a href="../pages/trocas.php">Trocas</a>
-            <?php //endif; ?>
-        </div> -->
+            <?php endif; ?>
+        </div>
 
         <div class="nav-usuario">
             <?php if ($logado): ?>
