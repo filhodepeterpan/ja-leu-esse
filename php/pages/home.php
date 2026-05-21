@@ -18,10 +18,15 @@
         $livrosParaTroca = array_values(
             array_filter($todosOsLivros, fn($l) => (int) $l['id_usuario'] !== (int) $_SESSION['id'] ?? null)
         );
-    }
 
-    // Para o carrossel - apenas 15 mais recentes
-    $livrosCarrossel15 = array_slice(array_reverse($livrosParaTroca), 0, 15);
+        // Para o carrossel - apenas 15 mais recentes
+        $livrosCarrossel15 = array_slice(array_reverse($livrosParaTroca), 0, 15);
+    }
+    else{
+        // Para o carrossel - apenas 15 mais recentes
+        $livrosCarrossel15 = array_slice(array_reverse($todosOsLivros), 0, 15);
+    }
+    
 ?>
 
 <!DOCTYPE html>
