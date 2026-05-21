@@ -3,7 +3,7 @@
 
     require '../config/env.php';
     require '../scripts/functions.php';
-    aplicaRestricao();
+    $logado = verificaLogin();
 
     // Busca todos os livros no banco
     $todosOsLivros = buscarTodosLivros();
@@ -40,9 +40,11 @@
     <h3 class="c-titulo" style="text-align: center; margin-top: 32px; margin-bottom: 16px;">Que tal começar uma nova viagem...</h3>
     <h3 class="c-titulo" style="margin-top: 8px; margin-bottom: 16px;">Hoje!</h3>
     <!-- Fim da frase e Botão de Login -->
-    <div class="login-action-container">
-        <a href="login.php" class="btn-login-grande">Login</a>
-    </div>
+    <?php if (!$logado): ?>
+        <div class="login-action-container">
+            <a href="login.php" class="btn-login-grande">Login</a>
+        </div>
+    <?php endif; ?>
 
 
     <div class="c-container">
@@ -57,9 +59,9 @@
         <div class="c-grupo" id="lista-livros">
             <?php foreach ($livrosCarrossel15 as $index => $livro): ?>
                 <div class="c-card">
-                    <img src="/sistema/ja-leu-esse/assets/img/examples/<?php echo $livro['img_livro'] ?>" class="c-capa">
+                    <img src="/sistema/ja-leu-esse/assets/img/examples/<?= $livro['img_livro'] ?>" class="c-capa">
                     <div class="c-info">
-                        <h3><?php echo $livro['nm_livro'] ?></h3>
+                        <h3><?= $livro['nm_livro'] ?></h3>
                     </div>
                 </div>
             <?php endforeach; ?>
