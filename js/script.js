@@ -5,6 +5,7 @@ import { Trocas } from './Trocas.js';
 import { TrocaFotos } from './TrocaFotos.js';
 import { Chat } from './Chat.js';
 import { MoverCarrossel } from './MoverCarrossel.js';
+import { ModalSair } from './ModalSair.js';
 
 document.addEventListener('DOMContentLoaded', () => {     
     const formDinamico = new FormDinamico('formLogin', 'formCadastro', 'semCadastro', 'comCadastro');
@@ -14,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const trocaFotos = new TrocaFotos('input-foto');
     const chat = new Chat();
     const moverCarrossel = new MoverCarrossel();
+    const modalSair = new ModalSair();
 
     formDinamico?.init();
     validadorForm?.init();
@@ -22,4 +24,5 @@ document.addEventListener('DOMContentLoaded', () => {
     trocaFotos?.init();
     chat?.init();
     moverCarrossel?.init();
+    modalSair?.init();
 });

@@ -59,3 +59,5 @@ $fotoPerfil = !empty($_SESSION['foto']) ? "../../{$_SESSION['foto']}" : null;
         </div>
     </nav>
 </header>
+
+<?php include('../components/modalSair.php'); ?>

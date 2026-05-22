@@ -55,14 +55,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="../pages/perfil.php">Cancelar</a>
     </main>
 
-    <script>
-        document.getElementById('form-delete').addEventListener('submit', function (e) {
-            if (!confirm('Tem certeza que deseja excluir "<?= htmlspecialchars($livro['nm_livro']) ?>"?')) {
-                e.preventDefault();
-            }
-        });
-    </script>
-
     <?php include('../layouts/footer.php'); ?>
 </body>
 </html>

@@ -1,38 +1,45 @@
 
 export class MoverCarrossel {
+    constructor() {
+        this.trilhoCarrossel = document.querySelector('.c-grupo');
+        this.fileiraLivros = document.querySelectorAll('.c-grupo .c-card');
+        this.setaDireita = document.querySelector('.btn-seta-direita');
+        this.setaEsquerda = document.querySelector('.btn-seta-esquerda');
+    }
+
     init() {
-        
-let trilhoCarrossel = document.querySelector('.c-grupo');
-let fileiraLivros = document.querySelectorAll('.c-grupo .c-card');
-let setaDireita = document.querySelector('.btn-seta-direita');
-let setaEsquerda = document.querySelector('.btn-seta-esquerda');
+        if (!this.trilhoCarrossel || !this.setaDireita || !this.setaEsquerda) return;
 
-// ================================
-
-// seta >
-
-setaDireita.addEventListener('click', () => {
-    let moverDireita = trilhoCarrossel.clientWidth * 0.50;
-
-    if (trilhoCarrossel.scrollLeft + trilhoCarrossel.clientWidth >= trilhoCarrossel.scrollWidth - 10) {
-        trilhoCarrossel.scrollTo({ left: 0, behavior: 'smooth' }); 
-    } else {
-        trilhoCarrossel.scrollBy({ left: moverDireita, behavior: 'smooth' }); 
+        this.setas();
     }
-});
 
-// ================================
+    setas() {
+        // ================================
 
-// seta <
+        // seta >
 
-setaEsquerda.addEventListener('click', () => {
-    let moverEsquerda = trilhoCarrossel.clientWidth * -0.50; 
+        this.setaDireita?.addEventListener('click', () => {
+            const moverDireita = trilhoCarrossel.clientWidth * 0.50;
 
-    if (trilhoCarrossel.scrollLeft <= 0) {
-        trilhoCarrossel.scrollTo({ left: trilhoCarrossel.scrollWidth, behavior: 'smooth' });
-    } else {
-        trilhoCarrossel.scrollBy({ left: moverEsquerda, behavior: 'smooth' }); 
+            if (trilhoCarrossel.scrollLeft + trilhoCarrossel.clientWidth >= trilhoCarrossel.scrollWidth - 10) {
+                trilhoCarrossel.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                trilhoCarrossel.scrollBy({ left: moverDireita, behavior: 'smooth' });
+            }
+        });
+
+        // ================================
+
+        // seta <
+
+        this.setaEsquerda?.addEventListener('click', () => {
+            const moverEsquerda = trilhoCarrossel.clientWidth * -0.50;
+
+            if (trilhoCarrossel.scrollLeft <= 0) {
+                trilhoCarrossel.scrollTo({ left: trilhoCarrossel.scrollWidth, behavior: 'smooth' });
+            } else {
+                trilhoCarrossel.scrollBy({ left: moverEsquerda, behavior: 'smooth' });
+            }
+        })
     }
-})
-}
 };
