@@ -173,6 +173,8 @@ function salvarFotoPerfil(int $idUsuario, array $arquivo): string|false
     return move_uploaded_file($arquivo['tmp_name'], $destino) ? $caminhoDb : false;
 }
 
+
+
 // ─── Autenticação ─────────────────────────────────────────────────────────────
 
 function logarUsuario(string $email, string $senha): bool

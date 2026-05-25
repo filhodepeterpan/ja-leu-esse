@@ -12,18 +12,19 @@ header nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 16px;
 }
 
 header .logo svg {
     fill: var(--cor-primaria);
-    height: 30px;
+    height: 32px;
 }
 
 .logo {
     display: flex;
     align-items: center;
     flex-direction: row;
-    gap: 0.5rem;
+    gap: 8px;
 }
 
 
@@ -35,14 +36,14 @@ header .logo svg {
 
 .nav-links {
     display: flex;
-    gap: 1rem;
+    gap: 16px;
     color: var(--cor-secundaria);
     font-weight: bold;
 }
 
 .nav-usuario form{
     display: flex;
-    gap: 0.5rem;
+    gap: 16px;
     align-items: center;
     font-weight: bold;
 }
@@ -51,8 +52,8 @@ header .logo svg {
     background-color: var(--cor-destaque-dark);
     color: #FFFFFF;
     border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 16px;
+    padding: 8px 16px;
+    border-radius: 8px;
 }
 
 .form-user {
@@ -73,4 +74,35 @@ footer {
     text-align: center;
     margin-top: auto;
     padding: var(--espacamento-padrao-tela);
+}
+
+
+
+
+@media (max-width: 576px) {
+    header nav {
+        flex-wrap: wrap; 
+        gap: 16px;
+        justify-content: center; 
+    }
+
+    .logo {
+        width: 100%;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .nav-links {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+        gap: 16px;
+    }
+
+    .nav-usuario form {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap; 
+        gap: 12px;
+    }
 }

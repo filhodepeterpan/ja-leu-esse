@@ -54,11 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <main>
         <div class="perfil-container">
-            <h2>Cadastrar Livro</h2>
-
             <form action="#" method="POST" enctype="multipart/form-data">
+                <h2>Cadastrar Livro</h2>
 
                 <!-- Capa do livro -->
+                 <div class="foto-wrapper-grupo">
                 <label for="input-capa" class="foto-wrapper" title="Adicionar capa do livro">
                     <div class="foto-perfil">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="60" fill="#aaa" id="svg-placeholder">
@@ -69,10 +69,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </svg>
                         <img src="" alt="Capa do livro" id="preview-foto" style="display:none">
                     </div>
-                    <div class="btn-trocar-foto">+</div>
+                    <!-- <div class="btn-trocar-foto">+</div> -->
                 </label>
                 <input type="file" id="input-capa" name="img_livro" accept="image/jpeg,image/png,image/webp">
+            </div>
 
+                
                 <div class="form-item">
                     <label for="nm_livro">Título *</label>
                     <input type="text" id="nm_livro" name="nm_livro" maxlength="200" required>
@@ -103,3 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include('../layouts/footer.php'); ?>
 </body>
 </html>
+
+<script type="module">
+
+    import { TrocaFotos } from '../../js/TrocaFotos.js';
+    new TrocaFotos('input-capa').init();
+</script>

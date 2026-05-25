@@ -48,13 +48,49 @@
     font-family: 'Roboto', sans-serif;
     font-size: 40px;     
     font-weight: 300;     
-    margin-bottom: 24px;  
+    margin-bottom: 16px;  
 }
 
-.quem-somos-conteudo p {
-    color: var(--cor-fonte-padrao);
-    font-family: var(--fonte-padrao);
-    font-size: 16px;     
-    line-height: 1.5;
+.quem-somos-conteudo h3 {
+    text-align: center;
+    margin-top: 0;
     margin-bottom: 16px; 
+}
+
+
+/*---imagens------*/
+
+.mapa-container {
+    width: 100vw; 
+    position: relative;
+    left: 50%; 
+    transform: translateX(-50%); 
+    margin: 64px 0 32px 0;
+    padding: 0;
+    display: block;
+}
+
+.mapa-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+}
+
+/*========  RODAPÉ ========*/
+.mapa-rodape-container {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+}
+
+.mapa-rodape-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
 }
