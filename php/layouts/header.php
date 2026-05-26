@@ -17,7 +17,7 @@ $fotoPerfil = !empty($_SESSION['foto']) ? "../../{$_SESSION['foto']}" : null;
 <header>
     <nav>
         <div class="logo">
-            <a href="../../index.php">
+            <a href="../pages/trocas.php">
                 <?php include('../../assets/img/logo.svg'); ?>
             </a>
             <a href="../../index.php">

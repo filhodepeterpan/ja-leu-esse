@@ -1,7 +1,27 @@
+/* ------ PERFIL -------*/
+
 .perfil-container {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 2rem;
+}
+
+/* ========== COLUNA ESQUERDA DE CARD DE PERFIL ========== */
+
+.coluna-esquerda {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 220px;
+    min-width: 220px;
+    gap: 0.25rem;
+    border: 1px solid #e8ddd0;
+    border-radius: 24px;
+    padding: 1.5rem 1.25rem;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* ── Foto ── */
@@ -14,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
 }
 
 .foto-perfil img {
@@ -23,51 +43,327 @@
     object-fit: cover;
 }
 
+.foto-wrapper-grupo {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center;  
+    width: 100%;            
+    margin-bottom: 1.5rem;   
+}
+
+
 .foto-wrapper {
     position: relative;
     width: 120px;
     height: 120px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     cursor: pointer;
 }
 
-/* ── Dados ── */
+/* ── Nome e email ── */
+.perfil-nome-bloco {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.15rem;
+    margin-bottom: 0.25rem;
+}
+
+.perfil-nome {
+    font-size: 1rem;
+    font-family: var(--fonte-padrao);
+    color: #1a1a1a;
+}
+
+.perfil-email-sub {
+    font-size: 0.78rem;
+    font-family: var(--fonte-padrao);
+    color: #888;
+}
+
+/* ── Divisor ── */
+.perfil-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #e8ddd0;
+    margin: 0.5rem 0;
+}
+
+/* ── Dados pessoais ── */
+.dados-pessoais {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
 .perfil-campo {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0.65rem;
+    width: 100%;
+}
+
+.perfil-campo h5 {
+    font-size: 0.6rem;
+    font-weight: 700;
+    font-family: var(--fonte-padrao);
+    color: #aaa;
+    margin: 0 0 0.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.perfil-campo h6 {
+    font-size: 0.8rem;
+    font-weight: 400;
+    font-family: var(--fonte-padrao);
+    color: #333;
+    margin: 0;
+}
+
+/* ── BOTÕES ── */
+.perfil-acoes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    width: 100%;
+}
+
+.btn-editar-perfil {
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 0.45rem 1rem;
+    border: 1px solid #333;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: var(--fonte-padrao);
+    color: #333;
+    background: transparent;
+    text-decoration: none;
+}
+
+#deletarConta {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border: 1px solid #c00;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-family: var(--fonte-padrao);
+    color: #c00;
+    background: transparent;
+    text-decoration: none;
+}
+
+/* ========== BLOCO DE LIVROS (DIREITA) ========== */
+
+.bloco-livros {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #e8ddd0;
+    border-radius: 24px;
+    padding: 1.5rem;
+    background: #ffffff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.livros-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
     margin-bottom: 1rem;
 }
 
-.perfil-campo label {
-    font-size: 0.75rem;
-    color: #888;
-    margin-bottom: 0.25rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+.btn-cadastrar-livro {
+    background: var(--cor-destaque-dark);
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-family: var(--fonte-padrao);
+    text-decoration: none;
+    white-space: nowrap;
 }
 
-.perfil-campo span {
-    font-size: 1rem;
+/* ── Livros lado a lado ── */
+
+#meus_livros,
+.livros-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 0.5rem;
 }
 
-.perfil-acoes {
-    margin-top: 2rem;
+/* ── Cards de livros ── */
+
+.livro-card {
+    width: 150px;
+    height: 225px;
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #271919;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
 }
 
-.perfil-acoes a, #cadastrarLivro {
-    display: inline-block;
-    padding: 0.5rem 1.25rem;
-    border: 1px solid currentColor;
+.livro-capa-container {
+    width: 100%;
+    height: 100%;
+}
+
+.livro-capa-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
     border-radius: 16px;
 }
 
-#cadastrarLivro {
-    background: #333;
-    color: #fff;
-    border-color: #333;
-    margin: 2rem 0 1rem 0;
+.livro-detalhes {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 0.3rem 0.5rem;
+    display: block;
+    border-radius:16px;
 }
-/* Badge "+" sobre a foto */
+
+.livro-titulo {
+    color: #fff;
+    font-size: 0.8rem;
+    margin: 0 0 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+}
+
+.livro-acoes-inline {
+    display: flex;
+    flex-direction: row;
+    gap: 0.4rem;
+}
+
+.btn-acao-editar,
+.btn-acao-deletar {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.5rem;
+    border-radius: 16px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn-acao-editar  { background: #333; }
+.btn-acao-deletar { background: #c00; }
+
+/* ── Mensagem vazio ── */
+.msg-vazio {
+    width: 100%;
+    padding: 2rem 0;
+    text-align: center;
+    color: #aaa;
+}
+
+/* ------- FIM PERFIL -------*/
+
+
+/* -- CADASTRO DE LIVRO --*/
+h2{
+    text-align: center;
+}
+.perfil-container {
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+
+.perfil-container form {
+    background: #ffffff;
+    border: 1px solid #e8ddd0;
+    border-radius: 24px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+    margin-top: 1.25rem;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+}
+
+
+.form-item {
+
+margin-top: 1rem;
+    gap:0.2rem;
+}
+
+
+.form-item label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #aaa;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+
+}
+
+/* ------ MOBILE (max 576px) -------*/
+
+@media (max-width: 576px) {
+    .perfil-container {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+
+    .coluna-esquerda {
+        width: 100%;
+        min-width: unset;
+    }
+
+    .bloco-livros {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .livros-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    #meus_livros,
+    .livros-grid {
+        gap: 0.75rem;
+    }
+
+    .livro-card {
+        width: 120px;
+        height: 180px;
+    }
+}
+
+/* ------ FIM MOBILE -------*/
+
+
+/* ------ PAG. EDIÇÃO DE PERFIL -------*/
+
 .btn-trocar-foto {
     position: absolute;
     bottom: 4px;
@@ -81,16 +377,13 @@
     line-height: 28px;
     text-align: center;
     pointer-events: none;
-    /* o clique é capturado pelo label pai */
     user-select: none;
 }
 
-/* Input de arquivo invisível — ativado pelo label (.foto-wrapper) */
 #input-foto {
     display: none;
 }
 
-/* ── Campos do formulário ── */
 .form-item {
     display: flex;
     flex-direction: column;
@@ -139,7 +432,4 @@
     background: transparent;
 }
 
-#deletarConta {
-    border-color: #c00;
-    color: #c00;
-}
+/* ------ FIM PAG. EDIÇÃO DE PERFIL -------*/

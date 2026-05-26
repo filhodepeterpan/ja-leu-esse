@@ -152,12 +152,12 @@ if ($logado) {
             <!-------------- FIM DO MODAL DE TROCAS ------------------>
 
 
-            <br><br><br><br><br>
+            <br><br><br>
 
 
             <!--------------------------------- FEED ------------------------------------->
 
-        <div class="feed-livros" id="feed-livros">
+        <!-- <div class="feed-livros" id="feed-livros">
 
             <?php foreach ($livrosParaTroca as $l) {
                 if (empty($l['img_livro'])) {
@@ -189,29 +189,36 @@ if ($logado) {
                 </div>
             </div>
             <?php } ?>
-        </div>
-
+        </div> -->
+   <?php endif; ?>
         <!---------------------------- FIM DO FEED ---------------------------------->
 
-        <?php endif; ?>
+        <div class="mapa-container">
+            <img src="../../assets/img/mapa.png" alt="Mapa das cidades">
+        </div>
 
 
         <!-- Seção Quem Somos -->
         <section class="quem-somos-container">
             <div class="quem-somos-conteudo">
                 <h2>Muito além das páginas</h2>
-                <p>
+                 <h3 style="text-aligng: center">Praia Grande</h3>
+                <br>
                     O <strong>Já leu esse?</strong> nasceu do desejo de conectar pessoas através das histórias que
                     guardamos na estante. Acreditamos que um livro parado é um universo adormecido.
-                </p>
-                <p>
+             <br>
                     Mais do que uma plataforma de trocas, este é um espaço de encontros afetuosos, calor humano e
                     partilha de conhecimento. Aqui, cada troca é um laço criado, um novo hobby compartilhado e o início
                     de uma nova jornada. Traga seus livros, descubra novos horizontes e faça parte dessa nossa ciranda
                     de leitores.
-                </p>
+               
             </div>
         </section>
+
+    <?php include '../layouts/footer.php'; ?>
+      <div class="mapa-rodape-container">
+            <img src="../../assets/img/mapa-rodape.png" alt="Ondas do Oceano Atlântico">
+        </div>
 
     </main>
 
@@ -235,7 +242,7 @@ if ($logado) {
         </script>
     <?php endif; ?>
 
-    <?php include '../layouts/footer.php'; ?>
+
 </body>
 
 </html>
