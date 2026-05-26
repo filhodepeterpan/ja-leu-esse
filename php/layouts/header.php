@@ -17,7 +17,7 @@ $fotoPerfil = !empty($_SESSION['foto']) ? "../../{$_SESSION['foto']}" : null;
 <header>
     <nav>
         <div class="logo">
-            <a href="../pages/trocas.php">
+            <a href="../pages/home.php">
                 <?php include('../../assets/img/logo.svg'); ?>
             </a>
             <a href="../../index.php">
@@ -48,7 +48,7 @@ $fotoPerfil = !empty($_SESSION['foto']) ? "../../{$_SESSION['foto']}" : null;
 
                     <a href="../pages/perfil.php">Meu perfil</a>
                     <input type="hidden" value="logout" name="logout">
-                    <button type="submit" id="logout" class="session-button">Logout</button>
+                    <button type="submit" id="logout" class="session-button">Sair</button>
                 </form>
             <?php else: ?>
                 <form action="#" method="POST" id="form-user-login" class="form-user">
