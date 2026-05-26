@@ -6,15 +6,17 @@
     aplicaRestricao();
 
     if ((isset($_GET['id_perfil'])) && ($_SESSION['id'] !== $_GET['id_perfil'])) {
-    $perfilUsuarioLogado    = false;
-    $usuario                = buscarUsuario($_GET['id_perfil']);
-    $livros                 = buscarLivrosDoUsuario($_GET['id_perfil']);
-    $fotoPerfilOutroUsuario = $usuario['img_icone_perfil'] ? "../../{$usuario['img_icone_perfil']}" : null;
+        $perfilUsuarioLogado    = false;
+        $usuario                = buscarUsuario($_GET['id_perfil']);
+        $livros                 = buscarLivrosDoUsuario($_GET['id_perfil']);
+        $fotoPerfilOutroUsuario = $usuario['img_icone_perfil'] ? "../../{$usuario['img_icone_perfil']}" : null;
     } else {
-    $perfilUsuarioLogado = true;
-    $usuario             = buscarUsuario($_SESSION['id']);
-    $livros              = buscarLivrosDoUsuario($_SESSION['id']);
+        $perfilUsuarioLogado = true;
+        $usuario             = buscarUsuario($_SESSION['id']);
+        $livros              = buscarLivrosDoUsuario($_SESSION['id']);
     }
+
+    $meus_livros = $livros;
 ?>
 
 <!DOCTYPE html>
@@ -35,10 +37,9 @@
     <main>
         <div class="perfil-container">
 
-            <!-- ========== COLUNA ESQUERDA: CARD DE PERFIL ========== -->
+            <!-- COLUNA ESQUERDA -->
             <div class="coluna-esquerda">
 
-                <!-- Foto de perfil -->
                 <div class="foto-perfil">
                     <?php if (!$perfilUsuarioLogado): ?>
                         <?php if ($fotoPerfilOutroUsuario): ?>
@@ -61,7 +62,6 @@
                     <?php endif; ?>
                 </div>
 
-                <!-- Nome e e-mail abaixo da foto -->
                 <div class="perfil-nome-bloco">
                     <strong class="perfil-nome"><?php echo htmlspecialchars($usuario['nm_usuario'] ?? '—') ?></strong>
                     <?php if ($perfilUsuarioLogado): ?>
@@ -71,7 +71,6 @@
 
                 <hr class="perfil-divider">
 
-                <!-- Dados pessoais -->
                 <div class="dados-pessoais">
                     <?php if ($perfilUsuarioLogado): ?>
                         <div class="perfil-campo">
@@ -107,7 +106,6 @@
                     <?php endif; ?>
                 </div>
 
-                <!-- Ações do perfil -->
                 <?php if ($perfilUsuarioLogado): ?>
                     <div class="perfil-acoes">
                         <a href="perfil_edicao.php" class="btn-editar-perfil">Editar Perfil</a>
@@ -116,10 +114,10 @@
                 <?php endif; ?>
 
             </div>
-            <!-- ========== FIM COLUNA ESQUERDA ========== -->
+            <!-- FIM COLUNA ESQUERDA -->
 
 
-            <!-- ========== BLOCO DE LIVROS (DIREITA) ========== -->
+            <!-- BLOCO DE LIVROS -->
             <section class="bloco-livros">
 
                 <div class="livros-header">
@@ -141,19 +139,29 @@
                                 </div>
 
                                 <div class="livro-detalhes">
-                                    <h5 class="livro-titulo" title="<?php echo htmlspecialchars($livro['nm_livro']) ?>">
-                                        <?php echo htmlspecialchars($livro['nm_livro']) ?>
-                                    </h5>
+                                    <div style="flex-grow: 1; overflow: hidden; padding-right: 8px;">
+                                        <h5 class="livro-titulo" title="<?php echo htmlspecialchars($livro['nm_livro']) ?>">
+                                            <?php echo htmlspecialchars($livro['nm_livro']) ?>
+                                        </h5>
+                                        <?php if ($perfilUsuarioLogado): ?>
+                                            <div class="livro-acoes-inline">
+                                                <a href="livro_cadastro_edicao.php?id=<?php echo $livro['id_livro'] ?>" class="btn-acao-editar">Editar</a>
+                                                <a href="../scripts/delete_livro.php?id=<?php echo $livro['id_livro'] ?>" class="btn-acao-deletar">Deletar</a>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
 
-                                    <?php if ($perfilUsuarioLogado): ?>
-                                        <div class="livro-acoes-inline">
-                                            <a href="livro_cadastro_edicao.php?id=<?php echo $livro['id_livro'] ?>" class="btn-acao-editar">
-                                                Editar
-                                            </a>
-                                            <a href="../scripts/delete_livro.php?id=<?php echo $livro['id_livro'] ?>" class="btn-acao-deletar">
-                                                Deletar
-                                            </a>
-                                        </div>
+                                    <?php if (!$perfilUsuarioLogado): ?>
+                                        <button
+                                            type="button"
+                                            class="btn-propor-troca"
+                                            data-index="<?php echo $livro['id_livro'] ?>"
+                                            data-id-usuario="<?php echo $livro['id_usuario'] ?>"
+                                            data-nome="<?php echo htmlspecialchars($livro['nm_livro']) ?>"
+                                            data-url="/sistema/ja-leu-esse/<?php echo $livro['img_livro'] ?>"
+                                            data-alt="<?php echo htmlspecialchars($livro['nm_livro']) ?>">
+                                            +
+                                        </button>
                                     <?php endif; ?>
                                 </div>
 
@@ -161,38 +169,96 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <div class="msg-vazio">
-                            <h5>Você ainda não cadastrou nenhum livro.</h5>
+                            <h5>Nenhum livro encontrado.</h5>
                         </div>
                     <?php endif; ?>
                 </div>
 
             </section>
-            <!-- ========== FIM BLOCO DE LIVROS ========== -->
+            <!-- FIM BLOCO DE LIVROS -->
 
         </div>
+
+
+        <!-- MODAL DE TROCA -->
+        <div id="modalTroca" class="modal-overlay hidden">
+            <div class="modal-box">
+
+                <button class="modal-fechar" id="modalFechar">&times;</button>
+                <h2 class="modal-titulo">Propor Troca</h2>
+
+                <div class="modal-livros">
+
+                    <div class="modal-slot" id="slotOferta">
+                        <div class="slot-placeholder" id="slotPlaceholder">
+                            <span class="slot-hint">Seu livro</span>
+                            <button class="btn-adicionar" id="btnAdicionar" title="Selecionar livro">+</button>
+                        </div>
+                        <img class="slot-img hidden" id="slotOfertaImg" src="" alt="">
+                        <p class="slot-nome hidden" id="slotOfertaNome"></p>
+                        <button class="btn-trocar hidden" id="btnTrocar">Escolher outro livro</button>
+                    </div>
+
+                    <span class="modal-seta">⇄</span>
+
+                    <div class="modal-slot" id="slotDesejo">
+                        <img class="slot-img" id="slotDesejoImg" src="" alt="">
+                        <p class="slot-nome" id="slotDesejoNome"></p>
+                    </div>
+
+                </div>
+
+                <button class="btn-negociar" id="btnNegociar" disabled>Negociar</button>
+            </div>
+
+            <!-- Seletor de livros -->
+            <div class="seletor-overlay hidden" id="seletorLivros">
+                <div class="seletor-box">
+                    <div class="seletor-header">
+                        <h3>Qual livro você quer oferecer?</h3>
+                        <button class="seletor-fechar" id="seletorFechar">&times;</button>
+                    </div>
+                    <div class="seletor-grid">
+                        <?php foreach ($meus_livros as $index => $livro): ?>
+                            <div class="seletor-card"
+                                data-index="<?php echo $index ?>"
+                                data-nome="<?php echo htmlspecialchars($livro['nm_livro']) ?>"
+                                data-url="/sistema/ja-leu-esse/<?php echo $livro['img_livro'] ?>"
+                                data-alt="<?php echo htmlspecialchars($livro['nm_livro']) ?>">
+                                <img src="/sistema/ja-leu-esse/<?php echo $livro['img_livro'] ?>" width="100px">
+                                <p><?php echo htmlspecialchars($livro['nm_livro']) ?></p>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- FIM MODAL DE TROCA -->
+
+
     </main>
 
-
     <script>
-        // Ao clicar no livro, alterna a visibilidade do menu editar/deletar
         document.querySelectorAll('.livro-item').forEach(item => {
             item.addEventListener('click', function (e) {
-                // Não fecha se o clique foi direto nos links
                 if (e.target.tagName === 'A') return;
-
                 const aberto = this.classList.contains('ativo');
-                // Fecha todos antes de abrir o clicado
                 document.querySelectorAll('.livro-item').forEach(i => i.classList.remove('ativo'));
                 if (!aberto) this.classList.add('ativo');
             });
         });
 
-        // Fecha ao clicar fora
         document.addEventListener('click', function (e) {
             if (!e.target.closest('.livro-item')) {
                 document.querySelectorAll('.livro-item').forEach(i => i.classList.remove('ativo'));
             }
         });
+    </script>
+
+    <script type="module">
+        import { Trocas } from '/sistema/ja-leu-esse/js/trocas.js';
+        const trocas = new Trocas('meus_livros', 'modalTroca');
+        trocas.init();
     </script>
 
     <?php include '../layouts/footer.php'; ?>

@@ -97,17 +97,15 @@ $livrosCarrossel15 = array_slice(array_reverse($livrosParaTroca), 0, 15);
         </div>
 
 
-        <!-------------- MODAL DE TROCAS DO CARROSSEL E FEED ------------------>
-
+        <!-- MODAL DE TROCA -->
         <div id="modalTroca" class="modal-overlay hidden">
             <div class="modal-box">
 
                 <button class="modal-fechar" id="modalFechar">&times;</button>
-                <h2 class="modal-titulo">Propor troca</h2>
+                <h2 class="modal-titulo">Propor Troca</h2>
 
                 <div class="modal-livros">
 
-                    <!-- Slot esquerdo: seu livro -->
                     <div class="modal-slot" id="slotOferta">
                         <div class="slot-placeholder" id="slotPlaceholder">
                             <span class="slot-hint">Seu livro</span>
@@ -120,7 +118,6 @@ $livrosCarrossel15 = array_slice(array_reverse($livrosParaTroca), 0, 15);
 
                     <span class="modal-seta">⇄</span>
 
-                    <!-- Slot direito: livro desejado -->
                     <div class="modal-slot" id="slotDesejo">
                         <img class="slot-img" id="slotDesejoImg" src="" alt="">
                         <p class="slot-nome" id="slotDesejoNome"></p>
@@ -140,7 +137,8 @@ $livrosCarrossel15 = array_slice(array_reverse($livrosParaTroca), 0, 15);
                     </div>
                     <div class="seletor-grid">
                         <?php foreach ($meus_livros as $index => $livro): ?>
-                            <div class="seletor-card" data-index="<?php echo $index ?>"
+                            <div class="seletor-card"
+                                data-index="<?php echo $index ?>"
                                 data-nome="<?php echo htmlspecialchars($livro['nm_livro']) ?>"
                                 data-url="/sistema/ja-leu-esse/<?php echo $livro['img_livro'] ?>"
                                 data-alt="<?php echo htmlspecialchars($livro['nm_livro']) ?>">
@@ -152,8 +150,7 @@ $livrosCarrossel15 = array_slice(array_reverse($livrosParaTroca), 0, 15);
                 </div>
             </div>
         </div>
-
-        <!-------------- FIM DO MODAL DE TROCAS ------------------>
+        <!----------------- FIM MODAL DE TROCA --------------------->
 
         <!------------------------------ FIM DO CARROSSEL --------------------------->
 

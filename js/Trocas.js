@@ -48,10 +48,8 @@ export class Trocas {
             card.addEventListener('click', () => this.selecionarOferta(card.dataset));
         });
 
-        this.btnTrocar?.addEventListener('click', () => this.resetarOferta());
+        this.btnTrocar?.addEventListener('click', () => this.abrirSeletor());
 
-
-        // ─── NOVO: Evento adicionado para o botão de confirmação ───
         this.btnNegociar?.addEventListener('click', () => this.enviarNegociacao());
     }
 

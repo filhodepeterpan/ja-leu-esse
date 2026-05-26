@@ -1,7 +1,7 @@
 /* Style Modal Logout */
 
 .modal-sair-overlay {
-    display: none; /* Começa escondido */
+    display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
@@ -10,15 +10,22 @@
     align-items: center;
 }
 
-.modal-sair-box {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    max-width: 90%;
-    font-family: Arial, sans-serif;
+.modal-slot {
+    position: relative; /* Essencial para segurar o botão com position absolute */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slot-img {
+    width: 140px;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+body.modal-aberto {
+    overflow: hidden;
 }
 
 .modal-sair-box h3 { text-align:center; margin-top: 0; color: #333; }
@@ -35,3 +42,52 @@
 
 .btn-nao { background-color: #bdc3c7; color: #333; }
 .btn-nao:hover { background-color: #95a5a6; }
+
+
+
+/* 1. O botão com seu estilo padrão e posicionado sem quebrar o layout */
+.btn-trocar {
+    background-color: var(--cor-destaque-dark); /* Mantendo a sua paleta afetiva */
+    color: white;
+    font-family: 'Roboto', sans-serif; /* Garantindo a fonte correta do projeto */
+    font-size: 0.75rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    border: none;
+    
+    /* A mágica do posicionamento */
+    position: absolute;
+    bottom: -40px; 
+    white-space: nowrap; 
+    
+    /* Uma transição suave para combinar com as formas acolhedoras do layout */
+    transition: opacity 0.3s ease;
+}
+
+/* 2. A classe utilitária que o JavaScript vai usar para esconder de verdade */
+.btn-trocar.hidden {
+    display: none !important; 
+}
+
+
+/* 1. Trava o alinhamento pelo topo e cria espaço para o botão flutuante */
+.modal-livros {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Mantém os topos das capas sempre na mesma linha */
+    margin-bottom: 3rem; /* Respiro necessário para o botão não encavalar no 'Negociar' */
+}
+
+/* 2. Como as caixas agora alinham pelo topo, a setinha precisa descer para o meio */
+.modal-seta {
+    display: block; /* Garante que ela respeite as margens */
+    margin-top: 105px; /* Desce a seta exatamente metade da altura da imagem (210px) */
+    transform: translateY(-50%); /* Ajuste fino para o ícone ficar no centro exato */
+}
+
+
+p.slot-nome.hidden {
+    display: block !important; /* Força o elemento a continuar na estrutura */
+    visibility: hidden; /* Apenas esconde visualmente */
+}
