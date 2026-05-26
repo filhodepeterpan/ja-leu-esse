@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Tem certeza que deseja excluir sua conta? Essa ação não pode ser desfeita.</p>
 
         <form method="POST" action="#" id="form-delete">
-            <button type="submit">Sim, excluir minha conta</button>
+            <button type="submit" class="botao-exclusao">Sim, excluir minha conta</button>
         </form>
 
         <a href="../pages/perfil.php">Cancelar</a>

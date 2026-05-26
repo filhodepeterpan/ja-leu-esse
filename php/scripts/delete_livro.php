@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Tem certeza que deseja excluir o livro <strong><?= htmlspecialchars($livro['nm_livro']) ?></strong>? Essa ação não pode ser desfeita.</p>
 
         <form method="POST" action="delete_livro.php?id=<?= $idLivro ?>" id="form-delete">
-            <button type="submit">Sim, excluir</button>
+            <button type="submit" class="botao-exclusao">Sim, excluir</button>
         </form>
 
         <a href="../pages/perfil.php">Cancelar</a>
