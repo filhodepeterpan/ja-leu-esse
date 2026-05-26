@@ -19,12 +19,12 @@ export class MoverCarrossel {
         // seta >
 
         this.setaDireita?.addEventListener('click', () => {
-            const moverDireita = trilhoCarrossel.clientWidth * 0.50;
+            const moverDireita = this.trilhoCarrossel.clientWidth * 0.50;
 
-            if (trilhoCarrossel.scrollLeft + trilhoCarrossel.clientWidth >= trilhoCarrossel.scrollWidth - 10) {
-                trilhoCarrossel.scrollTo({ left: 0, behavior: 'smooth' });
+            if (this.trilhoCarrossel.scrollLeft + this.trilhoCarrossel.clientWidth >= this.trilhoCarrossel.scrollWidth - 10) {
+                this.trilhoCarrossel.scrollTo({ left: 0, behavior: 'smooth' });
             } else {
-                trilhoCarrossel.scrollBy({ left: moverDireita, behavior: 'smooth' });
+                this.trilhoCarrossel.scrollBy({ left: moverDireita, behavior: 'smooth' });
             }
         });
 
@@ -33,12 +33,12 @@ export class MoverCarrossel {
         // seta <
 
         this.setaEsquerda?.addEventListener('click', () => {
-            const moverEsquerda = trilhoCarrossel.clientWidth * -0.50;
+            const moverEsquerda = this.trilhoCarrossel.clientWidth * -0.50;
 
-            if (trilhoCarrossel.scrollLeft <= 0) {
+            if (this.trilhoCarrossel.scrollLeft <= 0) {
                 trilhoCarrossel.scrollTo({ left: trilhoCarrossel.scrollWidth, behavior: 'smooth' });
             } else {
-                trilhoCarrossel.scrollBy({ left: moverEsquerda, behavior: 'smooth' });
+                this.trilhoCarrossel.scrollBy({ left: moverEsquerda, behavior: 'smooth' });
             }
         })
     }
