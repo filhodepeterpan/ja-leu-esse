@@ -84,26 +84,28 @@ $fotoPerfil = $usuario['img_icone_perfil'] ? "../../{$usuario['img_icone_perfil'
 
     <main>
         <div class="perfil-container">
-            <h2>Editar Perfil</h2>
+
 
             <form action="#" method="POST" enctype="multipart/form-data">
+                            <h2>Editar Perfil</h2>
 
-                <!-- Foto clicável -->
-                <label for="input-foto" class="foto-wrapper" title="Alterar foto de perfil">
-                    <div class="foto-perfil">
-                        <?php if ($fotoPerfil): ?>
-                            <img src="<?= htmlspecialchars($fotoPerfil) ?>" alt="Foto de perfil" id="preview-foto">
-                        <?php else: ?>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" fill="#aaa"
-                                id="svg-placeholder">
-                                <circle cx="40" cy="30" r="16" />
-                                <path d="M10 70 Q10 50 40 50 Q70 50 70 70Z" />
-                            </svg>
-                        <?php endif; ?>
-                    </div>
-                    <div class="btn-trocar-foto">+</div>
-                </label>
-                <input type="file" id="input-foto" name="foto_perfil" accept="image/jpeg,image/png,image/webp">
+                                <!-- Foto clicável -->
+                            <div class="foto-wrapper-grupo">
+                    <label for="input-foto" class="foto-wrapper" title="Alterar foto de perfil">
+                        <div class="foto-perfil">
+                            <?php if ($fotoPerfil): ?>
+                                <img src="<?= htmlspecialchars($fotoPerfil) ?>" alt="Foto de perfil" id="preview-foto">
+                            <?php else: ?>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" fill="#aaa" id="svg-placeholder">
+                                    <circle cx="40" cy="30" r="16" />
+                                    <path d="M10 70 Q10 50 40 50 Q70 50 70 70Z" />
+                                </svg>
+                            <?php endif; ?>
+                        </div>
+                        <div class="btn-trocar-foto">+</div>
+                    </label>
+                    <input type="file" id="input-foto" name="foto_perfil" accept="image/jpeg,image/png,image/webp">
+                </div>
 
                 <!-- Campos gerados por atributos.php -->
                 <?php foreach ($atributos as $atributo):
