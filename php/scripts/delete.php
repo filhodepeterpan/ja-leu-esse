@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         session_destroy();
         header("Location: ../../index.php");
     } else {
-        header("Location: perfil.php?erro=delete");
+        header("Location: ../pages/perfil.php");
     }
     exit();
 }
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">Sim, excluir minha conta</button>
         </form>
 
-        <a href="perfil.php">Cancelar</a>
+        <a href="../pages/perfil.php">Cancelar</a>
     </main>
 
     <script>
