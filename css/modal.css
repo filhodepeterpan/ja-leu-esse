@@ -10,6 +10,19 @@
     align-items: center;
 }
 
+.modal-sair-box {
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 .modal-slot {
     position: relative; /* Essencial para segurar o botão com position absolute */
     display: flex;
